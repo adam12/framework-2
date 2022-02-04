@@ -37,8 +37,8 @@ class TestApp < Minitest::Test
        # Wait for process to boot
       sleep 1
       assert_match "OK", `curl --silent -q localhost:61333`
-
-      Process.kill("INT", child)
+    ensure
+      Process.kill("INT", child) if child
       # Wait for child to exit successfully
       Process.waitall
     end
