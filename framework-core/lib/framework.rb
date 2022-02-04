@@ -1,7 +1,15 @@
 # frozen-string-literal: true
+
+require "rack"
 require "hanami/router"
 
 module Framework
+  class Request < ::Rack::Request
+  end
+
+  class Response < ::Rack::Response
+  end
+
   module Action
     def self.included(action)
       super
@@ -12,8 +20,8 @@ module Framework
 
         def self.call(env)
           new.tap do |obj|
-            obj.request = Rack::Request.new(env)
-            obj.response = Rack::Response.new
+            obj.request = Framework::Request.new(env)
+            obj.response = Framework::Response.new
           end.call
         end
       end
