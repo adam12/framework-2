@@ -7,8 +7,27 @@ class TestApp < Minitest::Test
         require "framework"
 
         module Blog
+          class Application < Framework::Application
+          end
+
+          class Routes < Framework::Routes
+            define do
+              get "/", to: Blog::Controllers::Posts::Index
+              get "/posts/:id", to: Blog::Controllers::Posts::Show
+            end
+          end
+
           module Controllers
             module Posts
+              class Index
+                include Framework::Action
+
+                def call
+                  response.write "OK"
+                  response.finish
+                end
+              end
+
               class Show
                 include Framework::Action
 
@@ -21,32 +40,7 @@ class TestApp < Minitest::Test
           end
         end
 
-        class Baz
-          module Controllers
-            module Foobars
-              class FoobarBaz
-                include Framework::Action
-
-                def call
-                  response.write "OK"
-                  response.finish
-                end
-              end
-            end
-          end
-
-          class Application < Framework::Application
-          end
-
-          class Routes < Framework::Routes
-            define do
-              get "/", to: Baz::Controllers::Foobars::FoobarBaz
-              get "/posts/:id", to: Blog::Controllers::Posts::Show
-            end
-          end
-        end
-
-        run Baz::Application.start
+        run Blog::Application.start
       RUBY
 
       child = spawn("rackup -q -p 61333 -I#{Dir.pwd}/lib config.ru", chdir: dir)
