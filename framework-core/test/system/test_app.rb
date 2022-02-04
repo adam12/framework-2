@@ -13,7 +13,7 @@ class TestApp < Minitest::Test
           class Routes < Framework::Routes
             define do
               get "/", to: Blog::Controllers::Posts::Index
-              get "/posts/:id", to: Blog::Controllers::Posts::Show
+              get "/posts/:id", to: Blog::Controllers::Posts::Show, as: :show
             end
           end
 
@@ -32,7 +32,8 @@ class TestApp < Minitest::Test
                 include Framework::Action
 
                 def call
-                  response.write "Blog post #{request.params[:id]}"
+                  id = request.params[:id]
+                  response.write "Blog post #{id} at #{routes.path(:show, id: id)}"
                   response.finish
                 end
               end
@@ -48,7 +49,7 @@ class TestApp < Minitest::Test
       sleep 1
 
       assert_match "OK", `curl --silent -q localhost:61333`
-      assert_match "Blog post 4", `curl --silent -q localhost:61333/posts/4`
+      assert_match "Blog post 4 at /posts/4", `curl --silent -q localhost:61333/posts/4`
     ensure
       Process.kill("INT", child) if child
       # Wait for child to exit successfully

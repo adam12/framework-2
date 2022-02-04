@@ -8,6 +8,10 @@ module Framework
     def params
       env["router.params"]
     end
+
+    def route_helpers
+      env[Router::HELPERS_KEY]
+    end
   end
 
   class Response < ::Rack::Response
@@ -20,6 +24,10 @@ module Framework
       action.class_eval do
         attr_accessor :request
         attr_accessor :response
+
+        def routes
+          request.route_helpers
+        end
 
         def self.call(env)
           new.tap do |obj|
@@ -53,7 +61,27 @@ module Framework
     end
   end
 
+  class RouteHelpers
+    def initialize(router)
+      @router = router
+    end
+
+    def path(...)
+      @router.path(...)
+    end
+
+    def url(...)
+      @router.url(...)
+    end
+  end
+
   class Router < ::Hanami::Router
+    HELPERS_KEY = "router.helpers"
+
+    def call(env)
+      env[HELPERS_KEY] = Framework::RouteHelpers.new(self)
+      super
+    end
   end
 
   class Routes
