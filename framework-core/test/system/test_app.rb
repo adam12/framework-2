@@ -25,7 +25,7 @@ class TestApp < Minitest::Test
 
           class Routes < Framework::Routes
             define do
-              get "/", to: "Baz::Controllers::Foobars::FoobarBaz"
+              get "/", to: Baz::Controllers::Foobars::FoobarBaz
             end
           end
         end
