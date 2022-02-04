@@ -6,6 +6,21 @@ class TestApp < Minitest::Test
       File.write(File.join(dir, "config.ru"), <<~'RUBY')
         require "framework"
 
+        module Blog
+          module Controllers
+            module Posts
+              class Show
+                include Framework::Action
+
+                def call
+                  response.write "Blog post #{request.params[:id]}"
+                  response.finish
+                end
+              end
+            end
+          end
+        end
+
         class Baz
           module Controllers
             module Foobars
@@ -26,6 +41,7 @@ class TestApp < Minitest::Test
           class Routes < Framework::Routes
             define do
               get "/", to: Baz::Controllers::Foobars::FoobarBaz
+              get "/posts/:id", to: Blog::Controllers::Posts::Show
             end
           end
         end
@@ -36,7 +52,9 @@ class TestApp < Minitest::Test
       child = spawn("rackup -q -p 61333 -I#{Dir.pwd}/lib config.ru", chdir: dir)
        # Wait for process to boot
       sleep 1
+
       assert_match "OK", `curl --silent -q localhost:61333`
+      assert_match "Blog post 4", `curl --silent -q localhost:61333/posts/4`
     ensure
       Process.kill("INT", child) if child
       # Wait for child to exit successfully

@@ -5,6 +5,9 @@ require "hanami/router"
 
 module Framework
   class Request < ::Rack::Request
+    def params
+      env["router.params"]
+    end
   end
 
   class Response < ::Rack::Response
