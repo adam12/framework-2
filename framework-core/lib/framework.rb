@@ -60,19 +60,19 @@ module Framework
       to_s.chomp("::Application")
     end
 
-    def self.build
+    def self.build(base_url: nil)
       new.tap do |application|
         resolver = Framework::Resolver.new(application)
 
         routes = Kernel.const_get(namespace)::Routes.routes
-        router = Framework::Router.new(resolver: resolver, &routes)
+        router = Framework::Router.new(base_url: base_url, resolver: resolver, &routes)
 
         application.setup(router)
       end
     end
 
-    def self.start
-      build.to_app
+    def self.start(...)
+      build(...).to_app
     end
   end
 

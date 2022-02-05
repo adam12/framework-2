@@ -33,7 +33,7 @@ class TestApp < Minitest::Test
 
                 def call
                   id = request.params[:id]
-                  response.write "Blog post #{id} at #{routes.path(:show, id: id)}"
+                  response.write "Blog post #{id} at #{routes.url(:show, id: id)}"
                   response.finish
                 end
               end
@@ -41,7 +41,7 @@ class TestApp < Minitest::Test
           end
         end
 
-        run Blog::Application.start
+        run Blog::Application.start(base_url: "http://example.com")
       RUBY
 
       child = spawn("rackup -q -p 61333 -I#{Dir.pwd}/lib config.ru", chdir: dir)
@@ -49,7 +49,7 @@ class TestApp < Minitest::Test
       sleep 1
 
       assert_match "OK", `curl --silent -q localhost:61333`
-      assert_match "Blog post 4 at /posts/4", `curl --silent -q localhost:61333/posts/4`
+      assert_match "Blog post 4 at http://example.com/posts/4", `curl --silent -q localhost:61333/posts/4`
     ensure
       Process.kill("INT", child) if child
       # Wait for child to exit successfully
