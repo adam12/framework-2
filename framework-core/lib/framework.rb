@@ -43,36 +43,36 @@ module Framework
   class Application
     attr_reader :router
     attr_reader :route_helpers
+    attr_reader :namespace
+    attr_reader :base_url
 
-    def initialize
+    def initialize(namespace, base_url)
+      @namespace = namespace
+      @base_url = base_url
+      setup_router
     end
 
     def to_app
       @router
     end
 
-    def setup(router)
-      @router = router
-      @route_helpers = Framework::RouteHelpers.new(router)
+    def self.build(base_url: nil)
+      new(namespace, base_url)
+    end
+
+    def self.start(...)
+      build(...).to_app
     end
 
     def self.namespace
       to_s.chomp("::Application")
     end
 
-    def self.build(base_url: nil)
-      new.tap do |application|
-        resolver = Framework::Resolver.new(application)
+    private
 
-        routes = Kernel.const_get(namespace)::Routes.routes
-        router = Framework::Router.new(base_url: base_url, resolver: resolver, &routes)
-
-        application.setup(router)
-      end
-    end
-
-    def self.start(...)
-      build(...).to_app
+    def setup_router
+      @router = Framework::Router.build(self)
+      @route_helpers = Framework::RouteHelpers.new(router)
     end
   end
 
@@ -104,6 +104,11 @@ module Framework
   end
 
   class Router < ::Hanami::Router
+    def self.build(application)
+      resolver = Framework::Resolver.new(application)
+      routes = Kernel.const_get(application.namespace)::Routes.routes
+      new(base_url: application.base_url, resolver: resolver, &routes)
+    end
   end
 
   class Routes
