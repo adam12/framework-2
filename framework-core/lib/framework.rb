@@ -8,10 +8,6 @@ module Framework
     def params
       env["router.params"]
     end
-
-    def route_helpers
-      env[Router::HELPERS_KEY]
-    end
   end
 
   class Response < ::Rack::Response
@@ -22,17 +18,23 @@ module Framework
       super
 
       action.class_eval do
-        attr_accessor :request
-        attr_accessor :response
+        attr_reader :request
+        attr_reader :response
+        attr_reader :_application
 
         def routes
-          request.route_helpers
+          _application.route_helpers
         end
 
-        def self.call(env)
+        def _setup(application, env)
+          @request = Framework::Request.new(env)
+          @response = Framework::Response.new
+          @_application = application
+        end
+
+        def self.call(application, env)
           new.tap do |obj|
-            obj.request = Framework::Request.new(env)
-            obj.response = Framework::Response.new
+            obj._setup(application, env)
           end.call
         end
       end
@@ -41,13 +43,18 @@ module Framework
 
   class Application
     attr_reader :router
+    attr_reader :route_helpers
 
-    def initialize(router)
-      @router = router
+    def initialize
     end
 
     def to_app
       @router
+    end
+
+    def setup(router)
+      @router = router
+      @route_helpers = RouteHelpers.new(router)
     end
 
     def self.namespace
@@ -55,9 +62,27 @@ module Framework
     end
 
     def self.start
-      routes = Kernel.const_get(namespace)::Routes.routes
-      router = Router.new(&routes)
-      new(router).to_app
+      new.tap do |application|
+        resolver = Framework::Resolver.new(application)
+
+        routes = Kernel.const_get(namespace)::Routes.routes
+        router = Router.new(resolver: resolver, &routes)
+
+        application.setup(router)
+      end.to_app
+    end
+  end
+
+  class Resolver
+    def initialize(application)
+      @application = application
+    end
+
+    def call(_path, to)
+      return to unless to < Framework::Action
+
+      # Provide application as first argument to call method
+      to.method(:call).curry.call(@application)
     end
   end
 
@@ -76,12 +101,6 @@ module Framework
   end
 
   class Router < ::Hanami::Router
-    HELPERS_KEY = "router.helpers"
-
-    def call(env)
-      env[HELPERS_KEY] = Framework::RouteHelpers.new(self)
-      super
-    end
   end
 
   class Routes
