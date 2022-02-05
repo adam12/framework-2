@@ -53,7 +53,14 @@ module Framework
     end
 
     def to_app
-      @router
+      require "hanami/middleware/body_parser"
+
+      router = self.router
+
+      Rack::Builder.new do |builder|
+        builder.use Hanami::Middleware::BodyParser, :json
+        builder.run router
+      end
     end
 
     def self.build(base_url: nil)
