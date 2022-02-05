@@ -30,12 +30,11 @@ module Framework
           @request = Framework::Request.new(env)
           @response = Framework::Response.new
           @_application = application
+          self
         end
 
         def self.call(application, env)
-          new.tap do |obj|
-            obj._setup(application, env)
-          end.call
+          new._setup(application, env).call
         end
       end
     end
