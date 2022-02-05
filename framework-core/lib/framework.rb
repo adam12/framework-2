@@ -53,7 +53,7 @@ module Framework
 
     def setup(router)
       @router = router
-      @route_helpers = RouteHelpers.new(router)
+      @route_helpers = Framework::RouteHelpers.new(router)
     end
 
     def self.namespace
@@ -65,7 +65,7 @@ module Framework
         resolver = Framework::Resolver.new(application)
 
         routes = Kernel.const_get(namespace)::Routes.routes
-        router = Router.new(resolver: resolver, &routes)
+        router = Framework::Router.new(resolver: resolver, &routes)
 
         application.setup(router)
       end.to_app
