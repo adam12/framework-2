@@ -60,7 +60,7 @@ module Framework
       to_s.chomp("::Application")
     end
 
-    def self.start
+    def self.build
       new.tap do |application|
         resolver = Framework::Resolver.new(application)
 
@@ -68,7 +68,11 @@ module Framework
         router = Framework::Router.new(resolver: resolver, &routes)
 
         application.setup(router)
-      end.to_app
+      end
+    end
+
+    def self.start
+      build.to_app
     end
   end
 
