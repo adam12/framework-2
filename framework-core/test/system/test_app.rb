@@ -8,6 +8,7 @@ class TestApp < Minitest::Test
 
         module Blog
           class Application < Framework::Application
+            config.base_url = "foo"
           end
 
           class Routes < Framework::Routes

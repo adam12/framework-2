@@ -2,6 +2,7 @@
 
 require "rack"
 require "hanami/router"
+require "dry-configurable"
 
 module Framework
   module Errors
@@ -48,15 +49,20 @@ module Framework
     end
   end
 
+  Configurable = Dry::Configurable
+
   class Application
     attr_reader :router
     attr_reader :route_helpers
     attr_reader :namespace
-    attr_reader :base_url
+    attr_reader :config
 
-    def initialize(namespace, base_url)
+    extend Framework::Configurable
+    setting :base_url
+
+    def initialize(namespace, config)
       @namespace = namespace
-      @base_url = base_url
+      @config = config
       setup_router
     end
 
@@ -72,7 +78,9 @@ module Framework
     end
 
     def self.build(base_url: nil)
-      new(namespace, base_url)
+      config = self.config.dup
+      config.base_url = base_url
+      new(namespace, config)
     end
 
     def self.start(...)
@@ -137,7 +145,7 @@ module Framework
         EOM
       end
 
-      new(base_url: application.base_url, resolver: resolver, &route_class.routes)
+      new(base_url: application.config.base_url, resolver: resolver, &route_class.routes)
     end
   end
 
