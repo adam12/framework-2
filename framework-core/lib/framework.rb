@@ -75,7 +75,7 @@ module Framework
         end
 
         builder.run self.router
-      end
+      end.to_app
     end
 
     def self.build(base_url: nil)
