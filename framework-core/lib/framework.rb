@@ -36,8 +36,9 @@ module Framework
         end
 
         def _setup(application, env)
-          @_request = Framework::Request.new(env)
-          @_response = Framework::Response.new
+          # Use the application's FrameworkRequest and FrameworkResponse classes
+          @_request = application.class::FrameworkRequest.new(env)
+          @_response = application.class::FrameworkResponse.new
           @_application = application
           self
         end
@@ -90,6 +91,14 @@ module Framework
 
     def self.namespace
       to_s.chomp("::Application")
+    end
+
+    def self.inherited(application)
+      super
+
+      # Define the FrameworkRequest and FrameworkResponse classes inside the application namespace
+      application.const_set(:FrameworkRequest, Class.new(Framework::Request))
+      application.const_set(:FrameworkResponse, Class.new(Framework::Response))
     end
 
     private
