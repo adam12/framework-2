@@ -18,8 +18,12 @@ module Framework
       super
 
       action.class_eval do
-        attr_reader :request
-        attr_reader :response
+        attr_reader :_request
+        alias_method :request, :_request
+
+        attr_reader :_response
+        alias_method :response, :_response
+
         attr_reader :_application
 
         def routes
@@ -27,8 +31,8 @@ module Framework
         end
 
         def _setup(application, env)
-          @request = Framework::Request.new(env)
-          @response = Framework::Response.new
+          @_request = Framework::Request.new(env)
+          @_response = Framework::Response.new
           @_application = application
           self
         end
