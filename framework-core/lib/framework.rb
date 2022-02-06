@@ -59,6 +59,7 @@ module Framework
 
     extend Framework::Configurable
     setting :base_url
+    setting :body_parser, default: true
 
     def initialize(namespace, config)
       @namespace = namespace
@@ -67,13 +68,13 @@ module Framework
     end
 
     def to_app
-      require "hanami/middleware/body_parser"
+      Rack::Builder.new.tap do |builder|
+        if config.body_parser
+          require "hanami/middleware/body_parser"
+          builder.use Hanami::Middleware::BodyParser, :json
+        end
 
-      router = self.router
-
-      Rack::Builder.new do |builder|
-        builder.use Hanami::Middleware::BodyParser, :json
-        builder.run router
+        builder.run self.router
       end
     end
 
