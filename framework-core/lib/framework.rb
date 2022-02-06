@@ -4,6 +4,10 @@ require "rack"
 require "hanami/router"
 
 module Framework
+  module Errors
+    Error = Class.new(StandardError)
+  end
+
   class Request < ::Rack::Request
     def params
       env["router.params"]
@@ -117,8 +121,23 @@ module Framework
   class Router < ::Hanami::Router
     def self.build(application)
       resolver = Framework::Resolver.new(application)
-      routes = Kernel.const_get(application.namespace)::Routes.routes
-      new(base_url: application.base_url, resolver: resolver, &routes)
+      begin
+        route_class = Kernel.const_get(application.namespace)::Routes
+      rescue NameError
+        raise Errors::Error, <<~EOM
+          Unable to find routes in '#{application.namespace}::Routes'. Try defining routes first.
+
+            module #{application.namespace}
+              class Routes < Framework::Routes
+                define do
+                  get "/", to: YourAction
+                end
+              end
+            end
+        EOM
+      end
+
+      new(base_url: application.base_url, resolver: resolver, &route_class.routes)
     end
   end
 
