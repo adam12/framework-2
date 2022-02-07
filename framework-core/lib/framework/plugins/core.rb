@@ -9,6 +9,10 @@ module Framework
 
       module RequestClassMethods
         attr_accessor :application_class
+
+        def inspect
+          "#{application_class.inspect}::FrameworkRequest"
+        end
       end
 
       module ResponseMethods
@@ -16,6 +20,10 @@ module Framework
 
       module ResponseClassMethods
         attr_accessor :application_class
+
+        def inspect
+          "#{application_class.inspect}::FrameworkResponse"
+        end
       end
 
       module ActionMethods
@@ -45,6 +53,10 @@ module Framework
 
         def call(application, env)
           new._setup(application, env).call
+        end
+
+        def inspect
+          "#{application_class.inspect}::FrameworkAction"
         end
       end
     end
