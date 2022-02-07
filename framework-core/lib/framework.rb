@@ -3,6 +3,7 @@
 require "rack"
 require "hanami/router"
 require "dry-configurable"
+require_relative "framework/plugins/core"
 
 module Framework
   module Errors
@@ -10,12 +11,11 @@ module Framework
   end
 
   class Request < ::Rack::Request
-    def params
-      env["router.params"]
-    end
+    include Framework::Plugins::Core::RequestMethods
   end
 
   class Response < ::Rack::Response
+    include Framework::Plugins::Core::ResponseMethods
   end
 
   module Action
