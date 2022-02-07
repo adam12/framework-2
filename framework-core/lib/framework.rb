@@ -10,15 +10,6 @@ module Framework
     Error = Class.new(StandardError)
   end
 
-  class Request < ::Rack::Request
-  end
-
-  class Response < ::Rack::Response
-  end
-
-  class Action
-  end
-
   module Configurable
     def self.extended(base)
       base.extend Dry::Configurable
@@ -26,6 +17,16 @@ module Framework
   end
 
   class Application
+    class FrameworkRequest < ::Rack::Request
+    end
+
+    class FrameworkResponse < ::Rack::Response
+    end
+
+    class FrameworkAction
+    end
+
+
     attr_reader :router
     attr_reader :route_helpers
     attr_reader :namespace
@@ -70,14 +71,14 @@ module Framework
       super
 
       # Define the FrameworkRequest and FrameworkResponse classes inside the application namespace
-      application.const_set(:FrameworkRequest, Class.new(Framework::Request))
-      application.const_set(:FrameworkResponse, Class.new(Framework::Response))
+      request = Class.new(self::FrameworkRequest)
+      application.const_set(:FrameworkRequest, request)
 
-      action = Class.new(Framework::Action)
+      response = Class.new(self::FrameworkResponse)
+      application.const_set(:FrameworkResponse, response)
+
+      action = Class.new(self::FrameworkAction)
       application.const_set(:FrameworkAction, action)
-
-      # Load core plugin into application
-      application.plugin(Framework::Plugins::Core)
     end
 
     def self.plugin(mod, ...)
@@ -110,6 +111,8 @@ module Framework
       mod.after_load(self, ...) if mod.respond_to?(:after_load)
     end
 
+    plugin(Framework::Plugins::Core)
+
     private
 
     def setup_router
@@ -124,7 +127,7 @@ module Framework
     end
 
     def call(_path, to)
-      return to unless to < Framework::Action
+      return to unless to < Framework::Application::FrameworkAction
 
       # Provide application as first argument to call method
       to.method(:call).curry.call(@application)
