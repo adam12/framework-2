@@ -146,17 +146,8 @@ module Framework
       begin
         route_class = Kernel.const_get(application.namespace)::Routes
       rescue NameError
-        raise Errors::Error, <<~EOM
-          Unable to find routes in '#{application.namespace}::Routes'. Try defining routes first.
-
-            module #{application.namespace}
-              class Routes < Framework::Routes
-                define do
-                  get "/", to: YourAction
-                end
-              end
-            end
-        EOM
+        # Define empty routes class if none has been defined
+        Kernel.const_get(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
       end
 
       new(base_url: application.config.base_url, resolver: resolver, &route_class.routes)
