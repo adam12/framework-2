@@ -87,8 +87,16 @@ module Framework
         self::FrameworkRequest.include(mod::RequestMethods)
       end
 
+      if defined?(mod::RequestClassMethods)
+        self::FrameworkRequest.extend(mod::RequestClassMethods)
+      end
+
       if defined?(mod::ResponseMethods)
         self::FrameworkResponse.include(mod::ResponseMethods)
+      end
+
+      if defined?(mod::ResponseClassMethods)
+        self::FrameworkResponse.extend(mod::ResponseClassMethods)
       end
 
       if defined?(mod::ActionMethods)
