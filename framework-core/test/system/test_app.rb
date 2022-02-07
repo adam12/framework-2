@@ -9,6 +9,9 @@ class TestApp < Minitest::Test
         module Blog
           class Application < Framework::Application
             config.base_url = "foo"
+
+            require "framework/plugins/h"
+            plugin Framework::Plugins::H 
           end
 
           class Routes < Framework::Routes
@@ -30,7 +33,7 @@ class TestApp < Minitest::Test
               class Show < Application::FrameworkAction
                 def call
                   id = request.params[:id]
-                  response.write "Blog post #{id} at #{routes.url(:show, id: id)}"
+                  response.write "Blog post #{h id} at #{h routes.url(:show, id: id)}"
                   response.finish
                 end
               end
