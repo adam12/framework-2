@@ -1,4 +1,4 @@
-require_relative "framework/version"
+require_relative "lib/framework/version"
 
 Gem::Specification.new do |spec|
   spec.name = "framework-core"
