@@ -50,7 +50,11 @@ module Framework
     end
   end
 
-  Configurable = Dry::Configurable
+  module Configurable
+    def self.extended(base)
+      base.extend Dry::Configurable
+    end
+  end
 
   class Application
     attr_reader :router
