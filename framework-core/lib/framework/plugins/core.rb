@@ -7,7 +7,15 @@ module Framework
         end
       end
 
+      module RequestClassMethods
+        attr_accessor :application_class
+      end
+
       module ResponseMethods
+      end
+
+      module ResponseClassMethods
+        attr_accessor :application_class
       end
 
       module ActionMethods
@@ -33,6 +41,8 @@ module Framework
       end
 
       module ActionClassMethods
+        attr_accessor :application_class
+
         def call(application, env)
           new._setup(application, env).call
         end

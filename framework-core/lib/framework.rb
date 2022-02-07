@@ -18,14 +18,16 @@ module Framework
 
   class Application
     class FrameworkRequest < ::Rack::Request
+      @application_class = Framework::Application
     end
 
     class FrameworkResponse < ::Rack::Response
+      @application_class = Framework::Application
     end
 
     class FrameworkAction
+      @application_class = Framework::Application
     end
-
 
     attr_reader :router
     attr_reader :route_helpers
@@ -72,12 +74,15 @@ module Framework
 
       # Define the FrameworkRequest and FrameworkResponse classes inside the application namespace
       request = Class.new(self::FrameworkRequest)
+      request.application_class = application
       application.const_set(:FrameworkRequest, request)
 
       response = Class.new(self::FrameworkResponse)
+      response.application_class = application
       application.const_set(:FrameworkResponse, response)
 
       action = Class.new(self::FrameworkAction)
+      action.application_class = application
       application.const_set(:FrameworkAction, action)
     end
 
