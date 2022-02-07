@@ -81,6 +81,8 @@ module Framework
     end
 
     def self.plugin(mod)
+      mod.before_load(self) if mod.respond_to?(:before_load)
+
       if defined?(mod::RequestMethods)
         self::FrameworkRequest.include(mod::RequestMethods)
       end
@@ -96,6 +98,8 @@ module Framework
       if defined?(mod::ActionClassMethods)
         self::FrameworkAction.extend(mod::ActionClassMethods)
       end
+
+      mod.after_load(self) if mod.respond_to?(:after_load)
     end
 
     private
