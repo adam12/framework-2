@@ -11,16 +11,12 @@ module Framework
   end
 
   class Request < ::Rack::Request
-    include Framework::Plugins::Core::RequestMethods
   end
 
   class Response < ::Rack::Response
-    include Framework::Plugins::Core::ResponseMethods
   end
 
   class Action
-    include Framework::Plugins::Core::ActionMethods
-    extend Framework::Plugins::Core::ActionClassMethods
   end
 
   module Configurable
@@ -79,6 +75,27 @@ module Framework
 
       action = Class.new(Framework::Action)
       application.const_set(:FrameworkAction, action)
+
+      # Load core plugin into application
+      application.plugin(Framework::Plugins::Core)
+    end
+
+    def self.plugin(mod)
+      if defined?(mod::RequestMethods)
+        self::FrameworkRequest.include(mod::RequestMethods)
+      end
+
+      if defined?(mod::ResponseMethods)
+        self::FrameworkResponse.include(mod::ResponseMethods)
+      end
+
+      if defined?(mod::ActionMethods)
+        self::FrameworkAction.include(mod::ActionMethods)
+      end
+
+      if defined?(mod::ActionClassMethods)
+        self::FrameworkAction.extend(mod::ActionClassMethods)
+      end
     end
 
     private
