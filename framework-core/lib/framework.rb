@@ -76,6 +76,9 @@ module Framework
       # Define the FrameworkRequest and FrameworkResponse classes inside the application namespace
       application.const_set(:FrameworkRequest, Class.new(Framework::Request))
       application.const_set(:FrameworkResponse, Class.new(Framework::Response))
+
+      action = Class.new(Framework::Action)
+      application.const_set(:FrameworkAction, action)
     end
 
     private
