@@ -18,36 +18,9 @@ module Framework
     include Framework::Plugins::Core::ResponseMethods
   end
 
-  module Action
-    def self.included(action)
-      super
-
-      action.class_eval do
-        attr_reader :_request
-        alias_method :request, :_request
-
-        attr_reader :_response
-        alias_method :response, :_response
-
-        attr_reader :_application
-
-        def routes
-          _application.route_helpers
-        end
-
-        def _setup(application, env)
-          # Use the application's FrameworkRequest and FrameworkResponse classes
-          @_request = application.class::FrameworkRequest.new(env)
-          @_response = application.class::FrameworkResponse.new
-          @_application = application
-          self
-        end
-
-        def self.call(application, env)
-          new._setup(application, env).call
-        end
-      end
-    end
+  class Action
+    include Framework::Plugins::Core::ActionMethods
+    extend Framework::Plugins::Core::ActionClassMethods
   end
 
   module Configurable
