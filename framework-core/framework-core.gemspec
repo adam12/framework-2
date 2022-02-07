@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   # spec.executables = ["framework"]
   spec.files = Dir.glob("lib/**/*.rb")
 
-  spec.add_dependency "dry-configurable"
+  spec.add_dependency "dry-configurable", ">= 0.12.0"
   spec.add_dependency "hanami-router", "2.0.0.alpha5"
 
   spec.add_development_dependency "minitest"
