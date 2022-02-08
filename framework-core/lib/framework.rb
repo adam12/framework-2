@@ -51,7 +51,7 @@ module Framework
           builder.use Hanami::Middleware::BodyParser, :json
         end
 
-        builder.run self.router
+        builder.run router
       end.to_app
     end
 

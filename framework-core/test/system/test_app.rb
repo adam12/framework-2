@@ -45,7 +45,7 @@ class TestApp < Minitest::Test
       RUBY
 
       child = spawn("rackup -q -p 61333 -I#{Dir.pwd}/lib config.ru", chdir: dir)
-       # Wait for process to boot
+      # Wait for process to boot
       sleep 1
 
       assert_match "OK", `curl --silent -q localhost:61333`

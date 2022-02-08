@@ -15,4 +15,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "hanami-router", "2.0.0.alpha5"
 
   spec.add_development_dependency "minitest"
+  spec.add_development_dependency "standard", "~> 1.7"
 end
