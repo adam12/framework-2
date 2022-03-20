@@ -4,7 +4,7 @@ module Framework
   module Plugins
     module H
       def self.before_load(_mod)
-        require "cgi"
+        require "cgi/util"
       end
 
       module ActionMethods
