@@ -153,7 +153,11 @@ module Framework
     end
   end
 
-  class Router < ::Hanami::Router
+  class Router
+    def initialize(base_url:, resolver:, &blk)
+      @router = Hanami::Router.new(base_url: base_url, resolver: resolver, &blk)
+    end
+
     def self.build(application)
       resolver = Framework::Resolver.new(application)
       begin
@@ -164,6 +168,18 @@ module Framework
       end
 
       new(base_url: application.config.base_url, resolver: resolver, &route_class.routes)
+    end
+
+    def path(...)
+      @router.path(...)
+    end
+
+    def url(...)
+      @router.url(...)
+    end
+
+    def call(...)
+      @router.call(...)
     end
   end
 
