@@ -7,7 +7,7 @@ class Framework::TestApplication < Minitest::Test
       assert_equal "ApplicationNamespace::App", app.namespace
     end
   end
-  
+
   def test_inheritance_sets_subclasses
     with_application do |app|
       assert_kind_of Class, app::FrameworkRequest
@@ -28,4 +28,3 @@ class Framework::TestApplication < Minitest::Test
     ApplicationNamespace.send :remove_const, :App
   end
 end
-
