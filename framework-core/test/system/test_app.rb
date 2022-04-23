@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "net/http"
 
 class TestApp < Minitest::Test
   def test_app_boots
@@ -46,10 +47,10 @@ class TestApp < Minitest::Test
 
       child = spawn("rackup -q -p 61333 -I#{Dir.pwd}/lib config.ru", chdir: dir)
       # Wait for process to boot
-      sleep 1
+      sleep 2
 
-      assert_match "OK", `curl --silent -q localhost:61333`
-      assert_match "Blog post 4 at http://example.com/posts/4", `curl --silent -q localhost:61333/posts/4`
+      assert_match "OK", Net::HTTP.get(URI("http://localhost:61333"))
+      assert_match "Blog post 4 at http://example.com/posts/4", Net::HTTP.get(URI("http://localhost:61333/posts/4"))
     ensure
       Process.kill("INT", child) if child
       # Wait for child to exit successfully
