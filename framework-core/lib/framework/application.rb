@@ -30,18 +30,6 @@ module Framework
       @config = config
     end
 
-    def self.build(base_url: nil)
-      config = self.config.dup
-      config.base_url = base_url
-      instance = new(namespace, config)
-      instance.send(:setup_router)
-      instance
-    end
-
-    def self.start(...)
-      build(...).to_app
-    end
-
     def self.namespace
       to_s.chomp("::Application")
     end
@@ -95,12 +83,5 @@ module Framework
 
     plugin(Framework::Plugins::Core)
     plugin(Framework::Plugins::HttpRouter)
-
-    private
-
-    def setup_router
-      @router = Framework::Router.build(self)
-      @route_helpers = Framework::RouteHelpers.new(router)
-    end
   end
 end
