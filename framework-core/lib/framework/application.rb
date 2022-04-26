@@ -1,8 +1,7 @@
 # frozen-string-literal: true
 
+require "rack"
 require_relative "configurable"
-require_relative "router"
-require_relative "route_helpers"
 require_relative "plugins/core"
 require_relative "plugins/http_router"
 

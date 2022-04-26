@@ -34,6 +34,8 @@ module Framework
 
       def self.before_load(mod)
         require "rack"
+        require "framework/router"
+        require "framework/route_helpers"
 
         mod.include(ApplicationInstanceMethods)
         mod.extend(ApplicationClassMethods)
