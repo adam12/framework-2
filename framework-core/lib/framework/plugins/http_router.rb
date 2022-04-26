@@ -14,19 +14,16 @@ module Framework
             builder.run router
           end.to_app
         end
-
-        def setup_router
-          @router = Framework::Router.build(self)
-          @route_helpers = Framework::RouteHelpers.new(router)
-        end
       end
 
       module ApplicationClassMethods
         def build(base_url: nil)
           config = self.config.dup
           config.base_url = base_url
+
           instance = new(namespace, config)
-          instance.setup_router
+          instance.router = router = Framework::Router.build(instance)
+          instance.route_helpers = Framework::RouteHelpers.new(router)
           instance
         end
 
@@ -38,12 +35,12 @@ module Framework
       def self.before_load(mod)
         require "rack"
 
-        mod.include ApplicationInstanceMethods
-        mod.extend ApplicationClassMethods
+        mod.include(ApplicationInstanceMethods)
+        mod.extend(ApplicationClassMethods)
 
         mod.class_eval do
-          attr_reader :router
-          attr_reader :route_helpers
+          attr_accessor :router
+          attr_accessor :route_helpers
 
           setting :base_url
           setting :body_parser, default: true
