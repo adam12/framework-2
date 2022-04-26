@@ -1,6 +1,5 @@
 # frozen-string-literal: true
 
-require "rack"
 require_relative "configurable"
 require_relative "router"
 require_relative "route_helpers"
@@ -30,17 +29,6 @@ module Framework
       @namespace = namespace
       @config = config
       setup_router
-    end
-
-    def to_app
-      Rack::Builder.new.tap do |builder|
-        if config.body_parser
-          require "hanami/middleware/body_parser"
-          builder.use Hanami::Middleware::BodyParser, :json
-        end
-
-        builder.run router
-      end.to_app
     end
 
     def self.build(base_url: nil)
