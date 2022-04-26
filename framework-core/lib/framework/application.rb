@@ -5,6 +5,7 @@ require_relative "configurable"
 require_relative "router"
 require_relative "route_helpers"
 require_relative "plugins/core"
+require_relative "plugins/http_router"
 
 module Framework
   class Application
@@ -20,14 +21,10 @@ module Framework
       @application_class = Framework::Application
     end
 
-    attr_reader :router
-    attr_reader :route_helpers
     attr_reader :namespace
     attr_reader :config
 
     extend Framework::Configurable
-    setting :base_url
-    setting :body_parser, default: true
 
     def initialize(namespace, config)
       @namespace = namespace
@@ -108,6 +105,7 @@ module Framework
     end
 
     plugin(Framework::Plugins::Core)
+    plugin(Framework::Plugins::HttpRouter)
 
     private
 
