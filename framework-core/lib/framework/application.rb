@@ -28,13 +28,14 @@ module Framework
     def initialize(namespace, config)
       @namespace = namespace
       @config = config
-      setup_router
     end
 
     def self.build(base_url: nil)
       config = self.config.dup
       config.base_url = base_url
-      new(namespace, config)
+      instance = new(namespace, config)
+      instance.send(:setup_router)
+      instance
     end
 
     def self.start(...)
