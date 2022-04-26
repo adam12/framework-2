@@ -4,6 +4,9 @@ module Framework
   module Plugins
     class HttpRouter
       module ApplicationInstanceMethods
+        attr_accessor :router
+        attr_accessor :route_helpers
+
         def to_app
           Rack::Builder.new.tap do |builder|
             if config.body_parser
@@ -37,12 +40,9 @@ module Framework
         require "framework/router"
         require "framework/route_helpers"
 
-        mod.include(ApplicationInstanceMethods)
-        mod.extend(ApplicationClassMethods)
-
         mod.class_eval do
-          attr_accessor :router
-          attr_accessor :route_helpers
+          include ApplicationInstanceMethods
+          extend ApplicationClassMethods
 
           setting :base_url
           setting :body_parser, default: true
