@@ -20,7 +20,7 @@ module Framework
         Kernel.const_get(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
       end
 
-      new(base_url: application.config.base_url, resolver: resolver, &route_class.routes)
+      new(base_url: application.config.http_router.base_url, resolver: resolver, &route_class.routes)
     end
 
     def get(path, to: nil, as: nil, **constraints, &blk)

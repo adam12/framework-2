@@ -9,7 +9,10 @@ class TestApp < Minitest::Test
 
         module Blog
           class Application < Framework::Application
-            config.base_url = "foo"
+            config.http_router.base_url = "foo"
+
+            require "rack/runtime"
+            config.http_router.middleware.use Rack::Runtime
 
             require "framework/plugins/h"
             plugin Framework::Plugins::H 
