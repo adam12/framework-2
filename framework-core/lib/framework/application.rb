@@ -2,9 +2,8 @@
 
 require "rack"
 require_relative "configurable"
-require_relative "router"
-require_relative "route_helpers"
 require_relative "plugins/core"
+require_relative "plugins/http_router"
 
 module Framework
   class Application
@@ -20,40 +19,14 @@ module Framework
       @application_class = Framework::Application
     end
 
-    attr_reader :router
-    attr_reader :route_helpers
     attr_reader :namespace
     attr_reader :config
 
     extend Framework::Configurable
-    setting :base_url
-    setting :body_parser, default: true
 
     def initialize(namespace, config)
       @namespace = namespace
       @config = config
-      setup_router
-    end
-
-    def to_app
-      Rack::Builder.new.tap do |builder|
-        if config.body_parser
-          require "hanami/middleware/body_parser"
-          builder.use Hanami::Middleware::BodyParser, :json
-        end
-
-        builder.run router
-      end.to_app
-    end
-
-    def self.build(base_url: nil)
-      config = self.config.dup
-      config.base_url = base_url
-      new(namespace, config)
-    end
-
-    def self.start(...)
-      build(...).to_app
     end
 
     def self.namespace
@@ -108,12 +81,6 @@ module Framework
     end
 
     plugin(Framework::Plugins::Core)
-
-    private
-
-    def setup_router
-      @router = Framework::Router.build(self)
-      @route_helpers = Framework::RouteHelpers.new(router)
-    end
+    plugin(Framework::Plugins::HttpRouter)
   end
 end
