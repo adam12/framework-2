@@ -2,8 +2,6 @@
 
 require "rack"
 require_relative "configurable"
-require_relative "plugins/core"
-require_relative "plugins/http_router"
 
 module Framework
   class Application
