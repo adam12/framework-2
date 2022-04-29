@@ -6,8 +6,8 @@ require_relative "routes"
 
 module Framework
   class Router
-    def initialize(base_url:, resolver:, &blk)
-      @router = Hanami::Router.new(base_url: base_url, resolver: resolver)
+    def initialize(router, &blk)
+      @router = router
       instance_eval(&blk) if blk
     end
 
@@ -20,7 +20,9 @@ module Framework
         Kernel.const_get(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
       end
 
-      new(base_url: application.config.http_router.base_url, resolver: resolver, &route_class.routes)
+      router = Hanami::Router.new(base_url: application.config.http_router.base_url, resolver: resolver)
+
+      new(router, &route_class.routes)
     end
 
     def get(path, to: nil, as: nil, **constraints, &blk)
