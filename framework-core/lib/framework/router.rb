@@ -3,6 +3,7 @@
 require "hanami/router"
 require_relative "resolver"
 require_relative "routes"
+require_relative "utils"
 
 module Framework
   class Router
@@ -14,10 +15,10 @@ module Framework
     def self.build(application)
       resolver = Framework::Resolver.new(application)
       begin
-        route_class = Kernel.const_get(application.namespace)::Routes
+        route_class = Utils.constantize(application.namespace)::Routes
       rescue NameError
         # Define empty routes class if none has been defined
-        Kernel.const_get(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
+        Utils.constantize(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
       end
 
       router = Hanami::Router.new(base_url: application.config.http_router.base_url, resolver: resolver)

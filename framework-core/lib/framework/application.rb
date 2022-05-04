@@ -2,6 +2,7 @@
 
 require "rack"
 require_relative "configurable"
+require_relative "utils"
 
 module Framework
   class Application
@@ -28,7 +29,7 @@ module Framework
     end
 
     def self.namespace
-      to_s.chomp("::Application")
+      Utils.deconstantize(to_s)
     end
 
     def self.inherited(application)
