@@ -9,7 +9,7 @@ class TestApp < Minitest::Test
 
         module Blog
           class Application < Framework::Application
-            config.http_router.base_url = "foo"
+            config.http_router.base_url = "http://example.com"
 
             require "rack/runtime"
             config.http_router.middleware.use Rack::Runtime
@@ -45,7 +45,7 @@ class TestApp < Minitest::Test
           end
         end
 
-        run Blog::Application.start(base_url: "http://example.com")
+        run Blog::Application.start
       RUBY
 
       RunningServer.start(dir + "/config.ru") do |running_server|
