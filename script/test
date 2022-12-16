@@ -4,5 +4,5 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-(cd framework-core && ruby -Ilib:test test/run.rb)
+(cd framework-core && bin/rake test)
 
