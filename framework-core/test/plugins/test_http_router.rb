@@ -1,4 +1,4 @@
-require "minitest/autorun"
+require "test_init"
 require "framework/plugins/http_router"
 
 class Framework::Plugins::HttpRouter::TestMiddlewareStack < Minitest::Test

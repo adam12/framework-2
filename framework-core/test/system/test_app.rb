@@ -1,4 +1,4 @@
-require "minitest/autorun"
+require "test_init"
 require "net/http"
 
 class TestApp < Minitest::Test

@@ -1,4 +1,4 @@
-require "minitest/autorun"
+require "test_init"
 require "framework"
 
 class Framework::TestApplication < Minitest::Test
