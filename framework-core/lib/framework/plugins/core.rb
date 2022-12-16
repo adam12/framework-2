@@ -59,6 +59,25 @@ module Framework
           "#{application_class.inspect}::FrameworkAction"
         end
       end
+
+      module ApplicationClassMethods
+        def build
+          new(
+            namespace,
+            config.dup
+          )
+        end
+
+        def app
+          @app = build
+        end
+      end
+
+      def self.before_load(mod)
+        mod.class_eval do
+          extend ApplicationClassMethods
+        end
+      end
     end
   end
 end
