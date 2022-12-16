@@ -1,0 +1,3 @@
+---
+ignore:
+  - framework-core/bin/*
