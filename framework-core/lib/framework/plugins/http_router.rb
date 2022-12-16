@@ -17,11 +17,8 @@ module Framework
       end
 
       module ApplicationClassMethods
-        def build(base_url: nil)
-          config = self.config.dup
-          config.http_router.base_url = base_url
-
-          instance = new(namespace, config)
+        def build(*)
+          instance = super()
           instance.router = router = Framework::Router.build(instance)
           instance.route_helpers = Framework::RouteHelpers.new(router)
           instance.http_middleware = config.http_router.middleware
