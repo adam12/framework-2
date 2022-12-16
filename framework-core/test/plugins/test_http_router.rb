@@ -52,6 +52,7 @@ class Framework::Plugins::HttpRouter::TestBuilder < Minitest::Test
   def build_middleware
     Class.new do
       def initialize(app)
+        # No-op
       end
     end
   end
