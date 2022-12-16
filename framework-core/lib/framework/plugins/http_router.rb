@@ -18,9 +18,7 @@ module Framework
 
       module ApplicationClassMethods
         def build(*)
-          config = self.config.dup
-
-          instance = new(namespace, config)
+          instance = super()
           instance.router = router = Framework::Router.build(instance)
           instance.route_helpers = Framework::RouteHelpers.new(router)
           instance.http_middleware = config.http_router.middleware
