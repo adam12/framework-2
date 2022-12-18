@@ -5,6 +5,7 @@ module Framework
     module HttpRouter
       require_relative "http_router/middleware_stack"
       require_relative "http_router/builder"
+      require_relative "http_router/route_helpers"
 
       module ApplicationInstanceMethods
         attr_accessor :router
@@ -20,7 +21,7 @@ module Framework
         def build(*)
           instance = super()
           instance.router = router = Framework::Router.build(instance)
-          instance.route_helpers = Framework::RouteHelpers.new(router)
+          instance.route_helpers = RouteHelpers.new(router)
           instance.http_middleware = config.http_router.middleware
           instance
         end
@@ -32,7 +33,6 @@ module Framework
 
       def self.before_load(mod)
         require "framework/router"
-        require "framework/route_helpers"
 
         mod.class_eval do
           include ApplicationInstanceMethods
