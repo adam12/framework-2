@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-configurable", ">= 0.12.0"
   spec.add_dependency "hanami-router", "~> 2.0"
   spec.add_dependency "rack", ">= 2.0"
+  spec.add_dependency "tilt", "~> 2.0"
 
   spec.add_development_dependency "debug", "~> 1.7"
   spec.add_development_dependency "minitest", "> 5.16"
