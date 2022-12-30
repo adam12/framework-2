@@ -3,7 +3,7 @@ module Framework
     module Core
       module RequestMethods
         def params
-          env["router.params"]
+          @params ||= Rack::Request.new(env).params.merge(env["router.params"])
         end
       end
 
