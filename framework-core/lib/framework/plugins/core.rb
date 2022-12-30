@@ -52,7 +52,9 @@ module Framework
         attr_accessor :application_class
 
         def call(application, env)
-          new._setup(application, env).call
+          catch(:halt) do
+            new._setup(application, env).call
+          end
         end
 
         def inspect
