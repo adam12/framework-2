@@ -54,6 +54,11 @@ module Framework
         def inspect
           "#{application_class.inspect}::FrameworkAction"
         end
+
+        def inherited(mod)
+          super
+          mod.application_class = application_class
+        end
       end
 
       module ApplicationClassMethods
