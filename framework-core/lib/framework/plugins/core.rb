@@ -21,33 +21,34 @@ module Framework
       end
 
       module ActionMethods
-        attr_reader :_request
+        attr_accessor :_request
         alias_method :request, :_request
 
-        attr_reader :_response
+        attr_accessor :_response
         alias_method :response, :_response
 
-        attr_reader :_application
-
         def routes
-          _application.route_helpers
+          application_class.app.route_helpers
         end
 
-        def _setup(application, env)
-          # Use the application's FrameworkRequest and FrameworkResponse classes
-          @_request = application.class::FrameworkRequest.new(env)
-          @_response = application.class::FrameworkResponse.new
-          @_application = application
-          self
+        def application_class
+          self.class.application_class
         end
       end
 
       module ActionClassMethods
         attr_accessor :application_class
 
-        def call(application, env)
+        def build(env)
+          new.tap do |instance|
+            instance._request = application_class::FrameworkRequest.new(env)
+            instance._response = application_class::FrameworkResponse.new
+          end
+        end
+
+        def call(env)
           catch(:halt) do
-            new._setup(application, env).call
+            build(env).call
           end
         end
 
