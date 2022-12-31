@@ -7,6 +7,12 @@ module Framework
       require_relative "http_router/builder"
       require_relative "http_router/route_helpers"
 
+      module RequestMethods
+        def params
+          @params ||= Rack::Request.new(env).params.merge(env["router.params"])
+        end
+      end
+
       module ApplicationInstanceMethods
         attr_accessor :router
         attr_accessor :route_helpers
