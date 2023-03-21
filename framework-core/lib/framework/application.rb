@@ -80,6 +80,5 @@ module Framework
     end
 
     plugin(Framework::Plugins::Core)
-    plugin(Framework::Plugins::HttpRouter)
   end
 end

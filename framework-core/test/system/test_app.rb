@@ -9,6 +9,8 @@ class TestApp < Minitest::Test
 
         module Blog
           class Application < Framework::Application
+            plugin Framework::Plugins::HttpRouter
+
             config.http_router.base_url = "http://example.com"
 
             require "rack/runtime"

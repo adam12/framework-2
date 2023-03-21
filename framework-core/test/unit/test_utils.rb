@@ -9,7 +9,7 @@ class Framework::TestUtils < Minitest::Test
 
   def test_constantize
     assert_equal String, Framework::Utils.constantize("String")
-    assert_equal Framework::Router, Framework::Utils.constantize("Framework::Router")
+    assert_equal Framework::Application, Framework::Utils.constantize("Framework::Application")
   end
 
   def test_deconstantize
