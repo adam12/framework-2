@@ -79,6 +79,12 @@ module Framework
         mod.class_eval do
           extend ApplicationClassMethods
         end
+
+        mod::FrameworkRequest.extend(RequestClassMethods)
+        mod::FrameworkResponse.include(ResponseMethods)
+        mod::FrameworkResponse.extend(ResponseClassMethods)
+        mod::FrameworkAction.include(ActionMethods)
+        mod::FrameworkAction.extend(ActionClassMethods)
       end
     end
   end

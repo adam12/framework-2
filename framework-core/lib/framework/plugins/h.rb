@@ -3,8 +3,10 @@
 module Framework
   module Plugins
     module H
-      def self.before_load(_mod)
+      def self.before_load(mod)
         require "cgi/util"
+
+        mod::FrameworkAction.include(ActionMethods)
       end
 
       module ActionMethods

@@ -5,6 +5,8 @@ module Framework
     module Render
       def self.before_load(application)
         require "tilt"
+
+        application::FrameworkAction.include(ActionMethods)
       end
 
       module ActionMethods

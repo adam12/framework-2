@@ -40,6 +40,8 @@ module Framework
       def self.before_load(mod)
         require "framework/router"
 
+        mod::FrameworkRequest.include(RequestMethods)
+
         mod.class_eval do
           include ApplicationInstanceMethods
           extend ApplicationClassMethods

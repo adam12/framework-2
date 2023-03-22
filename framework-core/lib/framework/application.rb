@@ -52,29 +52,7 @@ module Framework
     def self.plugin(mod, ...)
       mod.before_load(self, ...) if mod.respond_to?(:before_load)
 
-      if defined?(mod::RequestMethods)
-        self::FrameworkRequest.include(mod::RequestMethods)
-      end
-
-      if defined?(mod::RequestClassMethods)
-        self::FrameworkRequest.extend(mod::RequestClassMethods)
-      end
-
-      if defined?(mod::ResponseMethods)
-        self::FrameworkResponse.include(mod::ResponseMethods)
-      end
-
-      if defined?(mod::ResponseClassMethods)
-        self::FrameworkResponse.extend(mod::ResponseClassMethods)
-      end
-
-      if defined?(mod::ActionMethods)
-        self::FrameworkAction.include(mod::ActionMethods)
-      end
-
-      if defined?(mod::ActionClassMethods)
-        self::FrameworkAction.extend(mod::ActionClassMethods)
-      end
+      # TODO: Move all these to the plugins themselves
 
       mod.after_load(self, ...) if mod.respond_to?(:after_load)
     end
