@@ -9,7 +9,7 @@ module Framework
           plugin Framework::Plugins::Render
         end
 
-        action = Class.new(application::FrameworkAction) do
+        action = Class.new(application::HttpAction) do
           def call
             render(__dir__ + "/render_test.str")
           end
@@ -23,7 +23,7 @@ module Framework
           plugin Framework::Plugins::Render
         end
 
-        action = Class.new(application::FrameworkAction) do
+        action = Class.new(application::HttpAction) do
           def call
             render(__dir__ + "/render_test.str", layout: __dir__ + "/layout.str")
           end
@@ -37,7 +37,7 @@ module Framework
           plugin Framework::Plugins::Render
         end
 
-        action = Class.new(application::FrameworkAction) do
+        action = Class.new(application::HttpAction) do
           def call
             render(__dir__ + "/render_with_locals.str", foobar: "foobar")
           end

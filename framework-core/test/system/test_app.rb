@@ -2,13 +2,14 @@ require "test_init"
 require "net/http"
 
 class TestApp < Minitest::Test
-  def test_app_boots
+  def test_http_application
     Dir.mktmpdir("app") do |dir|
       File.write(File.join(dir, "config.ru"), <<~'RUBY')
         require "framework"
 
         module Blog
           class Application < Framework::Application
+            plugin Framework::Plugins::Http
             plugin Framework::Plugins::HttpRouter
 
             config.http_router.base_url = "http://example.com"
@@ -29,14 +30,14 @@ class TestApp < Minitest::Test
 
           module Controllers
             module Posts
-              class Index < Application::FrameworkAction
+              class Index < Application::HttpAction
                 def call
                   response.write "OK"
                   response.finish
                 end
               end
 
-              class Show < Application::FrameworkAction
+              class Show < Application::HttpAction
                 def call
                   id = request.params[:id]
                   response.write "Blog post #{h id} at #{h routes.url(:show, id: id)}"

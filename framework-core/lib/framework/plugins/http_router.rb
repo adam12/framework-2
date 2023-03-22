@@ -38,9 +38,11 @@ module Framework
       end
 
       def self.before_load(mod)
+        mod.plugin Framework::Plugins::Http
+
         require "framework/router"
 
-        mod::FrameworkRequest.include(RequestMethods)
+        mod::HttpRequest.include(RequestMethods)
 
         mod.class_eval do
           include ApplicationInstanceMethods

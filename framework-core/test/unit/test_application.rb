@@ -8,14 +8,6 @@ class Framework::TestApplication < Minitest::Test
     end
   end
 
-  def test_inheritance_sets_subclasses
-    with_application do |app|
-      assert_kind_of Class, app::FrameworkRequest
-      assert_kind_of Class, app::FrameworkResponse
-      assert_kind_of Class, app::FrameworkAction
-    end
-  end
-
   module ::ApplicationNamespace; end
 
   # Configure application class and yield created object

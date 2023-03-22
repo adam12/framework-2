@@ -6,7 +6,8 @@ module Framework
       def self.before_load(application)
         require "tilt"
 
-        application::FrameworkAction.include(ActionMethods)
+        application.plugin Framework::Plugins::Http
+        application::HttpAction.include(ActionMethods)
       end
 
       module ActionMethods

@@ -6,7 +6,7 @@ module Framework
       def self.before_load(mod)
         require "cgi/util"
 
-        mod::FrameworkAction.include(ActionMethods)
+        mod::HttpAction.include(ActionMethods)
       end
 
       module ActionMethods
