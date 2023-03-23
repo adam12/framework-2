@@ -22,7 +22,13 @@ module Framework
     def self.plugin(mod, ...)
       mod.before_load(self, ...) if mod.respond_to?(:before_load)
 
+      load_plugin(self, mod)
+
       mod.after_load(self, ...) if mod.respond_to?(:after_load)
+    end
+
+    # Empty hook used for customizing plugin loading
+    def self.load_plugin(application, mod)
     end
 
     plugin(Framework::Plugins::Core)

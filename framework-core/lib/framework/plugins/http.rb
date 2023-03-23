@@ -71,7 +71,39 @@ module Framework
         end
       end
 
+      module ApplicationClassMethods
+        def load_plugin(application, mod)
+          if defined?(mod::RequestMethods)
+            application::Request.include(mod::RequestMethods)
+          end
+
+          if defined?(mod::RequestClassMethods)
+            application::Request.extend(mod::RequestClassMethods)
+          end
+
+          if defined?(mod::ResponseMethods)
+            application::Response.include(mod::ResponseMethods)
+          end
+
+          if defined?(mod::ResponseClassMethods)
+            application::Response.extend(mod::ResponseClassMethods)
+          end
+
+          if defined?(mod::ActionMethods)
+            application::Action.include(mod::ActionMethods)
+          end
+
+          if defined?(mod::ActionClassMethods)
+            application::Action.extend(mod::ActionClassMethods)
+          end
+
+          super
+        end
+      end
+
       def self.before_load(mod)
+        mod.extend(ApplicationClassMethods)
+
         request = Class.new(Request)
         request.application_class = mod
         mod.const_set(:Request, request)
