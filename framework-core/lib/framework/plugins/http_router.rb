@@ -42,7 +42,7 @@ module Framework
 
         require "framework/router"
 
-        mod::HttpRequest.include(RequestMethods)
+        mod::Request.include(RequestMethods)
 
         mod.class_eval do
           include ApplicationInstanceMethods

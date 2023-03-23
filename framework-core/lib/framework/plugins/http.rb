@@ -5,7 +5,7 @@ require "rack"
 module Framework
   module Plugins
     module Http
-      class HttpRequest < ::Rack::Request
+      class Request < ::Rack::Request
         @application_class = Framework::Application
 
         def self.inherited(subclass)
@@ -18,7 +18,7 @@ module Framework
         end
       end
 
-      class HttpResponse < ::Rack::Response
+      class Response < ::Rack::Response
         @application_class = Framework::Application
 
         def self.inherited(subclass)
@@ -31,7 +31,7 @@ module Framework
         end
       end
 
-      class HttpAction
+      class Action
         @application_class = Framework::Application
 
         attr_accessor :_request
@@ -58,8 +58,8 @@ module Framework
 
           def build(env)
             new.tap do |instance|
-              instance._request = application_class::HttpRequest.new(env)
-              instance._response = application_class::HttpResponse.new
+              instance._request = application_class::Request.new(env)
+              instance._response = application_class::Response.new
             end
           end
 
@@ -72,17 +72,17 @@ module Framework
       end
 
       def self.before_load(mod)
-        request = Class.new(HttpRequest)
+        request = Class.new(Request)
         request.application_class = mod
-        mod.const_set(:HttpRequest, request)
+        mod.const_set(:Request, request)
 
-        response = Class.new(HttpResponse)
+        response = Class.new(Response)
         response.application_class = mod
-        mod.const_set(:HttpResponse, response)
+        mod.const_set(:Response, response)
 
-        action = Class.new(HttpAction)
+        action = Class.new(Action)
         action.application_class = mod
-        mod.const_set(:HttpAction, action)
+        mod.const_set(:Action, action)
       end
     end
   end

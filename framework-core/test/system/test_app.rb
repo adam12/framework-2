@@ -30,14 +30,14 @@ class TestApp < Minitest::Test
 
           module Controllers
             module Posts
-              class Index < Application::HttpAction
+              class Index < Application::Action
                 def call
                   response.write "OK"
                   response.finish
                 end
               end
 
-              class Show < Application::HttpAction
+              class Show < Application::Action
                 def call
                   id = request.params[:id]
                   response.write "Blog post #{h id} at #{h routes.url(:show, id: id)}"

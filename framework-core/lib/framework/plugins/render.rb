@@ -7,7 +7,7 @@ module Framework
         require "tilt"
 
         application.plugin Framework::Plugins::Http
-        application::HttpAction.include(ActionMethods)
+        application::Action.include(ActionMethods)
       end
 
       module ActionMethods
