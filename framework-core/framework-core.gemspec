@@ -15,10 +15,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "hanami-router", "~> 2.0"
   spec.add_dependency "rack", ">= 2.0"
   spec.add_dependency "tilt", "~> 2.0"
-
-  spec.add_development_dependency "debug", "~> 1.7"
-  spec.add_development_dependency "minitest", "> 5.16"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "standard", "~> 1.7"
-  spec.add_development_dependency "webrick"
 end
