@@ -1,5 +1,6 @@
 require "test_init"
-require "framework/plugins/render"
+require "framework"
+require "framework-render"
 
 module Framework
   module Plugins
