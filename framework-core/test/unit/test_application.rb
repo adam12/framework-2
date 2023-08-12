@@ -8,6 +8,19 @@ class Framework::TestApplication < Minitest::Test
     end
   end
 
+  def test_plugins_cannot_be_loaded_twice
+    loaded = 0
+
+    p = Object.new
+    p.define_singleton_method(:before_load) { |*| loaded += 1 }
+
+    app = Class.new(Framework::Application)
+    app.plugin(p)
+    app.plugin(p)
+
+    assert_equal 1, loaded
+  end
+
   module ::ApplicationNamespace; end
 
   # Configure application class and yield created object
