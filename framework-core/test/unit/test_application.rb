@@ -1,7 +1,7 @@
 require "test_init"
 require "framework"
 
-class Framework::TestApplication < Minitest::Test
+class Framework::TestApplication < Framework::TestCase
   def test_namespace_knows_its_ancestor_tree
     with_application do |app|
       assert_equal "ApplicationNamespace", app.namespace

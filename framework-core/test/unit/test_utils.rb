@@ -1,7 +1,7 @@
 require "test_init"
 require "framework/utils"
 
-class Framework::TestUtils < Minitest::Test
+class Framework::TestUtils < Framework::TestCase
   def test_demodulize
     assert_equal "Inflections", Framework::Utils.demodulize("Framework::Inflections")
     assert_equal "", Framework::Utils.demodulize("")

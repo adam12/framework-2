@@ -1,7 +1,7 @@
 require "test_init"
 require "framework/variant"
 
-class Framework::TestVariant < Minitest::Test
+class Framework::TestVariant < Framework::TestCase
   def test_force!
     original = Framework::Variant.default
 

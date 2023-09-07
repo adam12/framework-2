@@ -1,7 +1,7 @@
 require "test_init"
 require "net/http"
 
-class TestApp < Minitest::Test
+class TestApp < Framework::TestCase
   def test_http_application
     Dir.mktmpdir("app") do |dir|
       File.write(File.join(dir, "config.ru"), <<~'RUBY')

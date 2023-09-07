@@ -1,5 +1,5 @@
 require "test_init"
 require "framework"
 
-class Framework::TestRouter < Minitest::Test
+class Framework::TestRouter < Framework::TestCase
 end

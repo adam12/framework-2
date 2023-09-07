@@ -4,7 +4,7 @@ require "framework/plugins/http_router/middleware_stack"
 module Framework
   module Plugins
     module HttpRouter
-      class TestMiddlewareStack < Minitest::Test
+      class TestMiddlewareStack < Framework::TestCase
         def setup
           super
           @stack = MiddlewareStack.new
