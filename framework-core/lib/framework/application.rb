@@ -44,6 +44,17 @@ module Framework
       end
     end
 
+    def self.root
+      @root ||= find_root
+    end
+
+    def self.find_root
+      Pathname.new(Dir.pwd).ascend do |dir|
+        path = File.expand_path("Gemfile", dir)
+        return dir if File.exist?(path)
+      end
+    end
+
     plugin(Framework::Plugins::Core)
   end
 end
