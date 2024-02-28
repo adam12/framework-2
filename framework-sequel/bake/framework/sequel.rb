@@ -58,7 +58,7 @@ def migrate(database, version, migrations_path)
 
   require "sequel"
   Sequel.extension :migration
-  database.logger = Console.logger
+  database.logger = Framework.logger
   Sequel::Migrator.run(database, migrations_path, target: version)
 end
 
