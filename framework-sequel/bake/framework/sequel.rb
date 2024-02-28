@@ -26,11 +26,12 @@ end
 
 # Set up new project
 def setup
+  require "framework"
   require "fileutils"
 
-  config_file = "config/database.rb"
-  unless File.exist?(config_file)
-    File.write(config_file, <<~RUBY)
+  config_file = Framework.root.join("config/database.rb")
+  unless config_file.exist?
+    config_file.write(<<~RUBY)
       require "sequel"
 
       db = Sequel.connect(ENV.fetch("DATABASE_URL"))
@@ -39,9 +40,9 @@ def setup
   end
 
   FileUtils.mkdir_p(migrations_path)
-  migration_file = File.join(migrations_path, "001_tables.rb")
-  unless File.exist?(migration_file)
-    File.write(migration_file, <<~RUBY)
+  migration_file = Framework.root.join(migrations_path, "001_tables.rb")
+  unless migration_file.exist?
+    migration_file.write(<<~RUBY)
       Sequel.migration do
 
       end
