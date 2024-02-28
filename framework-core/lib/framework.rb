@@ -2,6 +2,7 @@
 
 module Framework
   require_relative "framework/version"
+  require_relative "framework/class_methods"
   require_relative "framework/variant"
   require_relative "framework/logger"
   require_relative "framework/errors"
