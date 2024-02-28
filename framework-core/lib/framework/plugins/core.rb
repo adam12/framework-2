@@ -12,6 +12,10 @@ module Framework
         def app
           @app = build
         end
+
+        def root
+          Framework.root
+        end
       end
 
       def self.before_load(mod)

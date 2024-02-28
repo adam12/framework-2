@@ -44,10 +44,6 @@ module Framework
       end
     end
 
-    def self.root
-      Framework.root
-    end
-
     plugin(Framework::Plugins::Core)
   end
 end
