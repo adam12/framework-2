@@ -24,6 +24,31 @@ def bounce(database: nil, migrations: migrations_path)
   migrate(database, nil, migrations)
 end
 
+# Set up new project
+def setup
+  require "fileutils"
+
+  config_file = "config/database.rb"
+  unless File.exist?(config_file)
+    File.write(config_file, <<~RUBY)
+      require "sequel"
+
+      db = Sequel.connect(ENV.fetch("DATABASE_URL"))
+      Sequel::Model.db = db
+    RUBY
+  end
+
+  FileUtils.mkdir_p(migrations_path)
+  migration_file = File.join(migrations_path, "001_tables.rb")
+  unless File.exist?(migration_file)
+    File.write(migration_file, <<~RUBY)
+      Sequel.migration do
+
+      end
+    RUBY
+  end
+end
+
 private
 
 def migrate(database, version, migrations_path)
