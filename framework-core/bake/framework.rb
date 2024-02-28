@@ -29,7 +29,23 @@ def console
   call("framework:application")
 
   require "irb"
+
+  name = File.basename(Bundler.root)
+  variant = Framework::Variant.default
+  prompt = "#{name} [#{variant}]"
+
+  IRB.setup(nil)
+  IRB.conf[:PROMPT][:FRAMEWORK] = {
+    AUTO_INDENT: true,
+    PROMPT_I: "#{prompt} > ",
+    PROMPT_S: "#{prompt} * ",
+    PROMPT_C: "#{prompt} ? ",
+    RETURN: "=> %s\n"
+  }
+
+  IRB.conf[:PROMPT_MODE] = :FRAMEWORK
+
   # Values present in ARGV cause IRB to act strangely
   ARGV.clear
-  IRB.start
+  IRB::Irb.new.run
 end
