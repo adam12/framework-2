@@ -49,7 +49,7 @@ module Framework
           extend ApplicationClassMethods
 
           setting :http_router do
-            setting :base_url
+            setting :base_url, default: "http://localhost"
             setting :middleware, default: MiddlewareStack.default
           end
         end
