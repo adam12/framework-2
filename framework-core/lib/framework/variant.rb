@@ -30,8 +30,8 @@ module Framework
         ::Variant.default
       end
 
-      def for(*arguments)
-        ::Variant.for(*arguments)
+      def for(*)
+        ::Variant.for(*)
       end
 
       ##
