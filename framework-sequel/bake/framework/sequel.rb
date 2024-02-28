@@ -34,8 +34,10 @@ def setup
     config_file.write(<<~RUBY)
       require "sequel"
 
-      db = Sequel.connect(ENV.fetch("DATABASE_URL"))
-      Sequel::Model.db = db
+      DB = Sequel.connect(ENV.fetch("DATABASE_URL"))
+
+      # Set up any custom Sequel extensions here
+      # DB.extension :pg_json
     RUBY
   end
 
@@ -44,7 +46,9 @@ def setup
   unless migration_file.exist?
     migration_file.write(<<~RUBY)
       Sequel.migration do
+        change do
 
+        end
       end
     RUBY
   end
