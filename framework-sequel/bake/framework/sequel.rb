@@ -2,7 +2,7 @@
 #
 # @param version [Integer] Version to migrate to. Defaults to latest.
 # @param database [String] Sequel database instance to use. Defaults to first connected.
-# @param migrations [String] Path to migrations. Defaults to 'migrate/'
+# @param migrations [String] Path to migrations. Defaults to 'db/migrate/'
 def down(version: 0, database: nil, migrations: migrations_path)
   migrate(database, version, migrations)
 end
@@ -10,7 +10,7 @@ end
 # Migrate database up
 #
 # @param database [String] Sequel database instance to use. Defaults to first connected.
-# @param migrations [String] Path to migrations. Defaults to 'migrate/'
+# @param migrations [String] Path to migrations. Defaults to 'db/migrate/'
 def up(database: nil, migrations: migrations_path)
   migrate(database, nil, migrations)
 end
@@ -18,7 +18,7 @@ end
 # Bounce database
 #
 # @param database [String] Sequel database instance to use. Defaults to first connected.
-# @param migrations [String] Path to migrations. Defaults to 'migrate/'
+# @param migrations [String] Path to migrations. Defaults to 'db/migrate/'
 def bounce(database: nil, migrations: migrations_path)
   migrate(database, 0, migrations)
   migrate(database, nil, migrations)
@@ -67,7 +67,7 @@ def migrate(database, version, migrations_path)
 end
 
 def migrations_path
-  "migrate"
+  "db/migrate"
 end
 
 def resolve_database(database)
