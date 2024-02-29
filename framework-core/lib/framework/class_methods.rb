@@ -7,7 +7,7 @@ module Framework
 
     # Default logger
     def logger
-      Console.logger
+      Logger
     end
   end
 
