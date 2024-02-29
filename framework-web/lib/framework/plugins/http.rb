@@ -51,24 +51,51 @@ module Framework
         def self.inherited(subclass)
           super
           subclass.application_class = application_class
+          subclass.prepend Callable
         end
 
-        class << self
+        module Callable
+          # Set up instance method that accepts env, request, response
+          # and calls method inside Action without any arguments.
+          def call(env, request, response)
+            @env = env
+            @_request = request
+            @_response = response
+            super()
+          end
+        end
+
+        module ActionMethods
+          # Hook to allow mutating of return value from Action `call` method.
+          def around_call
+            yield
+          end
+        end
+
+        module ActionClassMethods
           attr_accessor :application_class
 
-          def build(env)
-            new.tap do |instance|
-              instance._request = application_class::Request.new(env)
-              instance._response = application_class::Response.new
-            end
+          # Hook to allow customization of action construction and pass
+          # dependencies.
+          def build
+            new
           end
 
+          # Entrypoint as a Rack-style application.
           def call(env)
             catch(:halt) do
-              build(env).call
+              request = application_class::Request.new(env)
+              response = application_class::Response.new
+              instance = build
+              instance.around_call do
+                instance.call(env, request, response)
+              end
             end
           end
         end
+
+        extend ActionClassMethods
+        include ActionMethods
       end
 
       module ApplicationClassMethods

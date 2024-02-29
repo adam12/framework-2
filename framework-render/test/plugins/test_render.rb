@@ -16,7 +16,7 @@ module Framework
           end
         end
 
-        assert_equal "Render test string\n", action.new.call
+        assert_equal "Render test string\n", action.new.call(nil, nil, nil)
       end
 
       def test_render_with_layout
@@ -30,7 +30,7 @@ module Framework
           end
         end
 
-        assert_equal "Layout with Render test string\n\n", action.new.call
+        assert_equal "Layout with Render test string\n\n", action.new.call(nil, nil, nil)
       end
 
       def test_render_with_locals
@@ -44,7 +44,7 @@ module Framework
           end
         end
 
-        assert_equal "Render with locals foobar\n", action.new.call
+        assert_equal "Render with locals foobar\n", action.new.call(nil, nil, nil)
       end
     end
   end
