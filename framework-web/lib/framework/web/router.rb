@@ -1,9 +1,9 @@
 # frozen-string-literal: true
 
 require "hanami/router"
+require "framework/utils"
 require_relative "resolver"
 require_relative "routes"
-require_relative "utils"
 
 module Framework
   class Router

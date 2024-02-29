@@ -6,3 +6,4 @@ cd "$(dirname "$0")/.."
 
 (cd framework-core && bundle exec rake test)
 (cd framework-render && bundle exec rake test)
+(cd framework-web && bundle exec rake test)

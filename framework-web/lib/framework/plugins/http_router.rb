@@ -40,7 +40,7 @@ module Framework
       def self.before_load(mod)
         mod.plugin Framework::Plugins::Http
 
-        require "framework/router"
+        require "framework/web/router"
 
         mod::Request.include(RequestMethods)
 

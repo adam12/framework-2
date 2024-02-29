@@ -6,6 +6,7 @@ class TestApp < Framework::TestCase
     Dir.mktmpdir("app") do |dir|
       File.write(File.join(dir, "config.ru"), <<~'RUBY')
         require "framework"
+        require "framework-web"
 
         module Blog
           class Application < Framework::Application

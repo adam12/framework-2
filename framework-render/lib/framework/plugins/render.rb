@@ -5,6 +5,7 @@ module Framework
     module Render
       def self.before_load(application)
         require "tilt"
+        require "framework-web"
 
         application.plugin Framework::Plugins::Http
         application::Action.include(ActionMethods)
