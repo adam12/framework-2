@@ -61,11 +61,16 @@ module Framework
         module Callable
           # Set up instance method that accepts env, request, response
           # and calls method inside Action without any arguments.
-          def call(env, request, response)
-            @env = env
-            @_request = request
-            @_response = response
-            super()
+          def call(env, request = nil, response = nil)
+            catch(:halt) do
+              @env = env
+              @_request = request || application_class::Request.new(env)
+              @_response = response || application_class::Response.new
+
+              around_call do
+                super()
+              end
+            end
           end
         end
 
@@ -87,14 +92,7 @@ module Framework
 
           # Entrypoint as a Rack-style application.
           def call(env)
-            catch(:halt) do
-              request = application_class::Request.new(env)
-              response = application_class::Response.new
-              instance = build
-              instance.around_call do
-                instance.call(env, request, response)
-              end
-            end
+            build.call(env)
           end
         end
 
