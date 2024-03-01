@@ -6,29 +6,9 @@ module Framework
   module Plugins
     module Http
       class Request < ::Rack::Request
-        @application_class = Framework::Application
-
-        def self.inherited(subclass)
-          super
-          subclass.application_class = application_class
-        end
-
-        class << self
-          attr_accessor :application_class
-        end
       end
 
       class Response < ::Rack::Response
-        @application_class = Framework::Application
-
-        def self.inherited(subclass)
-          super
-          subclass.application_class = application_class
-        end
-
-        class << self
-          attr_accessor :application_class
-        end
       end
 
       class Action
@@ -135,11 +115,9 @@ module Framework
         mod.extend(ApplicationClassMethods)
 
         request = Class.new(Request)
-        request.application_class = mod
         mod.const_set(:Request, request)
 
         response = Class.new(Response)
-        response.application_class = mod
         mod.const_set(:Response, response)
 
         action = Class.new(Action)
