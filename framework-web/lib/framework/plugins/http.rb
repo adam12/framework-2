@@ -54,6 +54,10 @@ module Framework
           subclass.prepend Callable
         end
 
+        def self.===(other)
+          name == other.name
+        end
+
         module Callable
           # Set up instance method that accepts env, request, response
           # and calls method inside Action without any arguments.
