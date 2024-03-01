@@ -21,7 +21,10 @@ module Framework
         Utils.constantize(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
       end
 
-      router = Hanami::Router.new(base_url: application.config.http_router.base_url, resolver: resolver)
+      router = Hanami::Router.new(
+        base_url: application.config.http_router.base_url,
+        resolver: resolver
+      )
 
       new(router, &route_class.routes)
     end

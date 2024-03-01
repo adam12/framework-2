@@ -68,6 +68,7 @@ module Framework
               @_response = response || application_class::Response.new
 
               around_call do
+                # Intentionally called without arguments
                 super()
               end
             end
