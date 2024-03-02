@@ -14,14 +14,25 @@ module Framework
       class Action
         @application_class = Framework::Application
 
-        attr_accessor :_request
+        attr_accessor :request_context
+
+        def _request
+          request_context.request
+        end
         alias_method :request, :_request
 
-        attr_accessor :_response
+        def _response
+          request_context.response
+        end
         alias_method :response, :_response
 
+        def _application
+          request_context.application
+        end
+        alias_method :application, :_application
+
         def routes
-          application_class.app.route_helpers
+          _application.route_helpers
         end
 
         def application_class
@@ -39,14 +50,12 @@ module Framework
         end
 
         module Callable
-          # Set up instance method that accepts env, request, response
-          # and calls method inside Action without any arguments.
-          def call(env, request = nil, response = nil)
-            catch(:halt) do
-              @env = env
-              @_request = request || application_class::Request.new(env)
-              @_response = response || application_class::Response.new
+          # Accept call with request_context and then invoke Action's `call`
+          # method without any arguments.
+          def call(request_context)
+            @request_context = request_context
 
+            catch(:halt) do
               around_call do
                 # Intentionally called without arguments
                 super()
@@ -71,9 +80,9 @@ module Framework
             new
           end
 
-          # Entrypoint as a Rack-style application.
-          def call(env)
-            build.call(env)
+          # Entrypoint
+          def call(request_context)
+            build.call(request_context)
           end
         end
 
