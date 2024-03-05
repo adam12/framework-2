@@ -28,6 +28,8 @@ module Framework
     end
 
     def call(_path, to)
+      return to if to.is_a?(Proc)
+
       if to < Framework::Plugins::Http::Action
         ->(env) {
           request_context = RequestContext.build(env: env, application: @application)
