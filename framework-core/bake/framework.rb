@@ -10,6 +10,14 @@ def application
   require File.expand_path("config/application", root)
 end
 
+# Load database
+def database
+  call("framework:environment")
+  require "framework"
+  root = Bundler.root
+  require File.expand_path("config/database", root)
+end
+
 # Run piece of code inside app context
 #
 # @param input [Any(Input,String)]
