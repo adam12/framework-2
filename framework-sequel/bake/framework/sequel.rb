@@ -57,7 +57,7 @@ end
 private
 
 def migrate(database, version, migrations_path)
-  call("framework:application")
+  call("framework:database")
   database = resolve_database(database)
 
   require "sequel"
