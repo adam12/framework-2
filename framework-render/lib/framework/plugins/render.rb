@@ -9,6 +9,8 @@ module Framework
 
         application.plugin Framework::Plugins::Http
         application::Action.include(ActionMethods)
+
+        yield if defined?(yield)
       end
 
       module ActionMethods
