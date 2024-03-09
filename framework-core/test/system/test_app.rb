@@ -41,7 +41,7 @@ class TestApp < Framework::TestCase
               class Show < Application::Action
                 def call
                   id = request.params[:id]
-                  response.write "Blog post #{h id} at #{h routes.url(:show, id: id)}"
+                  response.write "Blog post #{h id} at #{h routes.url(:show, id: id).to_s}"
                   response.finish
                 end
               end
