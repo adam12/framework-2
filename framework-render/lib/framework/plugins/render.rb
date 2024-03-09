@@ -14,7 +14,11 @@ module Framework
       end
 
       module ActionMethods
-        def render(template, layout: nil, locals: {}, **local_args)
+        def render(template = nil, content: nil, layout: nil, locals: {}, **local_args)
+          if template && content
+            raise ArgumentError, "Passing template and :content is ambiguous"
+          end
+
           if local_args.any?
             warn <<~MSG, uplevel: 1, category: :deprecated
               Passing bare locals to `render` is deprecated. Use `locals:` key instead.
@@ -23,8 +27,16 @@ module Framework
 
           locals = locals.merge(local_args)
           if layout
+            if String === content
+              return Tilt.new(layout).render(self) { content }
+            end
+
             Tilt.new(layout).render(self) { Tilt.new(template).render(self, locals) }
           else
+            if String === content
+              return content
+            end
+
             Tilt.new(template).render(self, locals)
           end
         end
