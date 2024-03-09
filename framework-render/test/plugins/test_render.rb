@@ -53,7 +53,7 @@ module Framework
 
         action = Class.new(application::Action) do
           def call
-            render(__dir__ + "/render_with_locals.str", foobar: "foobar")
+            render(__dir__ + "/render_with_locals.str", locals: {foobar: "foobar"})
           end
         end
 
