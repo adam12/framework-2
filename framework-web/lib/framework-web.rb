@@ -4,5 +4,6 @@ module Framework
     autoload :Http, __dir__ + "/framework/plugins/http.rb"
     autoload :HttpRouter, __dir__ + "/framework/plugins/http_router.rb"
     autoload :HttpSession, __dir__ + "/framework/plugins/http_session.rb"
+    autoload :HttpFlash, __dir__ + "/framework/plugins/http_flash.rb"
   end
 end
