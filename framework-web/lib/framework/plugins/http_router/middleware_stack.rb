@@ -8,8 +8,24 @@ module Framework
           @stack = []
         end
 
+        def index(needle)
+          return needle if needle.is_a?(Numeric)
+
+          @stack.map { |el| el.first }.index(needle)
+        end
+
         def use(middleware, *args)
           @stack.push [middleware, args]
+        end
+
+        def before(neighbour, middleware, *args)
+          idx = index(neighbour)
+          @stack.insert idx, [middleware, args]
+        end
+
+        def after(neighbour, middleware, *args)
+          idx = index(neighbour)
+          @stack.insert idx + 1, [middleware, args]
         end
 
         def last
