@@ -8,4 +8,6 @@ module Framework
   require_relative "framework/errors"
   require_relative "framework/plugins"
   require_relative "framework/application"
+
+  UNDEFINED = Object.new
 end
