@@ -14,8 +14,8 @@ module Framework
           @stack.map { |el| el.first }.index(needle)
         end
 
-        def use(middleware, *args)
-          @stack.push [middleware, args]
+        def use(middleware, *args, &block)
+          @stack.push [middleware, args, block]
         end
 
         def before(neighbour, middleware, *args)

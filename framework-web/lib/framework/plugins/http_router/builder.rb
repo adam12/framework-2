@@ -16,8 +16,8 @@ module Framework
 
         def to_app
           Rack::Builder.new.tap do |builder|
-            middleware_stack.each do |middleware, opts|
-              builder.use middleware, *opts
+            middleware_stack.each do |middleware, opts, blk|
+              builder.use middleware, *opts, &blk
             end
 
             builder.run router
