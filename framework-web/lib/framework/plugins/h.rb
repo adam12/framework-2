@@ -11,6 +11,7 @@ module Framework
 
       module ActionMethods
         def h(str)
+          return if str.nil?
           CGI.escapeHTML(str)
         end
       end
