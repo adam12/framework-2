@@ -10,4 +10,7 @@ module Framework
   require_relative "framework/application"
 
   UNDEFINED = Object.new
+
+  autoload :Validation, "framework/validation"
+  autoload :Filter, "framework/filter"
 end
