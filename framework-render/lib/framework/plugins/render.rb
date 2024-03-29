@@ -7,9 +7,7 @@ module Framework
 
       def self.before_load(application, template_opts: {})
         require "tilt"
-        require "framework-web"
 
-        application.plugin Framework::Plugins::Http
         application::Action.include(ActionMethods)
 
         yield if defined?(yield)
