@@ -8,7 +8,9 @@ module Framework
       def self.before_load(application, template_opts: {})
         require "tilt"
 
-        application::Action.include(ActionMethods)
+        if defined?(application::Action)
+          application::Action.include(ActionMethods)
+        end
 
         yield if defined?(yield)
       end
