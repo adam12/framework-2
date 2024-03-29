@@ -47,7 +47,6 @@ class Framework::Plugins::HttpRouter::TestBuilder < Minitest::Test
     @router ||= [200, {}, ["OK"]]
   end
 
-  ##
   # A class that matches the interface of Rack Middleware
   def build_middleware
     Class.new do

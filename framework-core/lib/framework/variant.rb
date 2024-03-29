@@ -3,14 +3,12 @@
 require "variant"
 
 module Framework
-  ##
   # Variants represent the different types of environments the application
   # might be running in, with common ones such as development, testing, and
   # production.
   #
   module Variant
     class << self
-      ##
       # Force the variant to be the provided value for the duration of the
       # application's runtime.
       #
@@ -19,7 +17,6 @@ module Framework
         ::Variant.force!(value)
       end
 
-      ##
       # Retrieve the default variant.
       #
       # This value may be affected by use of the variant:* bake commands or via
@@ -34,7 +31,6 @@ module Framework
         ::Variant.for(*)
       end
 
-      ##
       # Check if default variant matches predicate method.
       #
       #   Framework::Variant.development? # => true

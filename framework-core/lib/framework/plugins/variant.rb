@@ -1,6 +1,5 @@
 module Framework
   module Plugins
-    ##
     # Add `variant` class method to applications
     module Variant
       def self.before_load(application)

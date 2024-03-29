@@ -2,14 +2,12 @@
 
 module Framework
   module Utils
-    ##
     # Convert string to Constant
     def constantize(value)
       Object.const_get(value)
     end
     module_function :constantize
 
-    ##
     # Remove last constant from path
     #
     # deconstantize("Net::HTTP") # => "Net"
@@ -24,7 +22,6 @@ module Framework
     end
     module_function :deconstantize
 
-    ##
     # Remove module namespace from path, returning final constant
     #
     # demodulize("Net::HTTP") # => "HTTP"
