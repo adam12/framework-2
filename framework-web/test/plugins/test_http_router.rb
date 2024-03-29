@@ -6,7 +6,7 @@ class Framework::Plugins::HttpRouter::TestMiddlewareStack < Framework::TestCase
     stack.use :baz
     stack.use :foobar
 
-    assert_equal [:foobar, []], stack.last
+    assert_equal [:foobar, [], nil], stack.last
   end
 
   def test_iterate_through_stack
@@ -21,7 +21,7 @@ class Framework::Plugins::HttpRouter::TestMiddlewareStack < Framework::TestCase
   def test_default_stack_includes_body_parser
     stack = Framework::Plugins::HttpRouter::MiddlewareStack.default
 
-    assert_includes stack.to_a, [Hanami::Middleware::BodyParser, [:json]]
+    assert_includes stack.to_a, [Hanami::Middleware::BodyParser, [:json], nil]
   end
 
   def stack

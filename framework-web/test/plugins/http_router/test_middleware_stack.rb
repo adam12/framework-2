@@ -13,14 +13,14 @@ module Framework
         def test_use
           middleware = Object.new
           @stack.use(middleware)
-          assert_equal [[middleware, []]], @stack.to_a
+          assert_equal [[middleware, [], nil]], @stack.to_a
         end
 
         def test_use_with_args
           middleware = Object.new
           args = Object.new
           @stack.use(middleware, args)
-          assert_equal [[middleware, [args]]], @stack.to_a
+          assert_equal [[middleware, [args], nil]], @stack.to_a
         end
 
         def test_default_stack
