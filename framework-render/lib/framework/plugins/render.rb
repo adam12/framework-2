@@ -9,6 +9,7 @@ module Framework
         require "tilt"
 
         if defined?(application::Action)
+          application::Action.include(RenderMethods)
           application::Action.include(ActionMethods)
         end
 
@@ -16,10 +17,8 @@ module Framework
       end
 
       module ActionMethods
-        def render(template = nil, content: nil, layout: nil, format: UNDEFINED, locals: {})
-          if template && content
-            raise ArgumentError, "Passing template and :content is ambiguous"
-          end
+        def render(template = nil, format: UNDEFINED, **rest)
+          res = super(template, **rest)
 
           case format
           when UNDEFINED
@@ -35,6 +34,16 @@ module Framework
             response.header["content-type"] = "application/json"
           else
             raise ArgumentError, "Unknown format: #{format.inspect}"
+          end
+
+          res
+        end
+      end
+
+      module RenderMethods
+        def render(template = nil, content: nil, layout: nil, locals: {})
+          if template && content
+            raise ArgumentError, "Passing template and :content is ambiguous"
           end
 
           if layout
