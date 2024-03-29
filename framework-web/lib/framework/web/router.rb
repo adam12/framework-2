@@ -15,10 +15,10 @@ module Framework
     def self.build(application)
       resolver = Framework::Resolver.new(application)
       begin
-        route_class = Utils.constantize(application.namespace)::Routes
+        route_class = application.namespace::Routes
       rescue NameError
         # Define empty routes class if none has been defined
-        Utils.constantize(application.namespace).const_define(:Routes, Class.new(Framework::Routes))
+        application.namespace.const_define(:Routes, Class.new(Framework::Routes))
       end
 
       router = Hanami::Router.new(

@@ -13,7 +13,7 @@ module Framework
 
       module ApplicationClassMethods
         def namespace
-          Utils.deconstantize(to_s)
+          Utils.constantize(Utils.deconstantize(to_s))
         end
 
         def build(namespace: nil)
