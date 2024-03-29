@@ -16,7 +16,8 @@ module Framework
           Utils.deconstantize(to_s)
         end
 
-        def build
+        def build(namespace: nil)
+          namespace ||= self.namespace
           new(namespace, config.dup)
         end
 
