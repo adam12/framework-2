@@ -5,7 +5,7 @@ module Framework
     module Render
       HTML_EXT = /\.html\b/
 
-      def self.before_load(application, template_opts: {})
+      def self.before_load(application)
         require "tilt"
 
         if defined?(application::Action)
