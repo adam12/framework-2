@@ -22,11 +22,16 @@ module Framework
         end
 
         def app
-          @app = build
+          instance
         end
 
         def root
           Framework.root
+        end
+
+        # Singleton instance of built application
+        def instance
+          @instance ||= build
         end
       end
 
