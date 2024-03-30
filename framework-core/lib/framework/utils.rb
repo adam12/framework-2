@@ -2,6 +2,12 @@
 
 module Framework
   module Utils
+    # Warn functionality has been deprecated with original callsite location
+    def deprecated(msg)
+      warn msg, category: :deprecated, uplevel: 1
+    end
+    module_function :deprecated
+
     # Convert string to Constant
     def constantize(value)
       Object.const_get(value)

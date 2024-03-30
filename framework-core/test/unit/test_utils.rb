@@ -17,4 +17,10 @@ class Framework::TestUtils < Framework::TestCase
     assert_equal "String", Framework::Utils.deconstantize("String")
     assert_equal "", Framework::Utils.deconstantize("")
   end
+
+  def test_deprecated
+    assert_output(nil, /This is a test deprecation message/) do
+      Framework::Utils.deprecated("This is a test deprecation message")
+    end
+  end
 end
