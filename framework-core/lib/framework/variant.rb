@@ -27,8 +27,8 @@ module Framework
         ::Variant.default
       end
 
-      def for(*)
-        ::Variant.for(*)
+      def for(...)
+        ::Variant.for(...)
       end
 
       # Check if default variant matches predicate method.

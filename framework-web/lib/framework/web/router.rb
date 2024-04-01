@@ -29,40 +29,40 @@ module Framework
       new(router, &route_class.routes)
     end
 
-    def get(path, to: nil, as: nil, **constraints, &blk)
-      @router.get(path, to: to, as: as, **constraints, &blk)
+    def get(path, to: nil, as: nil, **constraints, &)
+      @router.get(path, to: to, as: as, **constraints, &)
     end
 
-    def post(path, to: nil, as: nil, **constraints, &blk)
-      @router.post(path, to: to, as: as, **constraints, &blk)
+    def post(path, to: nil, as: nil, **constraints, &)
+      @router.post(path, to: to, as: as, **constraints, &)
     end
 
-    def patch(path, to: nil, as: nil, **constraints, &blk)
-      @router.patch(path, to: to, as: as, **constraints, &blk)
+    def patch(path, to: nil, as: nil, **constraints, &)
+      @router.patch(path, to: to, as: as, **constraints, &)
     end
 
-    def put(path, to: nil, as: nil, **constraints, &blk)
-      @router.put(path, to: to, as: as, **constraints, &blk)
+    def put(path, to: nil, as: nil, **constraints, &)
+      @router.put(path, to: to, as: as, **constraints, &)
     end
 
-    def delete(path, to: nil, as: nil, **constraints, &blk)
-      @router.delete(path, to: to, as: as, **constraints, &blk)
+    def delete(path, to: nil, as: nil, **constraints, &)
+      @router.delete(path, to: to, as: as, **constraints, &)
     end
 
-    def link(path, to: nil, as: nil, **constraints, &blk)
-      @router.link(path, to: to, as: as, **constraints, &blk)
+    def link(path, to: nil, as: nil, **constraints, &)
+      @router.link(path, to: to, as: as, **constraints, &)
     end
 
-    def unlink(path, to: nil, as: nil, **constraints, &blk)
-      @router.unlink(path, to: to, as: as, **constraints, &blk)
+    def unlink(path, to: nil, as: nil, **constraints, &)
+      @router.unlink(path, to: to, as: as, **constraints, &)
     end
 
-    def options(path, to: nil, as: nil, **constraints, &blk)
-      @router.options(path, to: to, as: as, **constraints, &blk)
+    def options(path, to: nil, as: nil, **constraints, &)
+      @router.options(path, to: to, as: as, **constraints, &)
     end
 
-    def trace(path, to: nil, as: nil, **constraints, &blk)
-      @router.trace(path, to: to, as: as, **constraints, &blk)
+    def trace(path, to: nil, as: nil, **constraints, &)
+      @router.trace(path, to: to, as: as, **constraints, &)
     end
 
     def mount(app, at:, **constraints)
@@ -73,12 +73,12 @@ module Framework
       @router.redirect(path, to: to, as: as, code: code)
     end
 
-    def scope(path, &blk)
-      @router.scope(path, &blk)
+    def scope(path, &)
+      @router.scope(path, &)
     end
 
-    def root(to: nil, &blk)
-      @router.root(to: to, &blk)
+    def root(to: nil, &)
+      @router.root(to: to, &)
     end
 
     def path(...)

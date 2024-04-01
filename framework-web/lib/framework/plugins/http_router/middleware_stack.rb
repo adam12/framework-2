@@ -32,8 +32,8 @@ module Framework
           @stack.last
         end
 
-        def each(&blk)
-          @stack.each(&blk)
+        def each(&)
+          @stack.each(&)
         end
 
         def to_a
