@@ -1,9 +1,4 @@
-require "minitest/autorun"
+require "framework/test_case"
 require "debug"
 require "framework"
 require "framework-web"
-
-module Framework
-  class TestCase < Minitest::Test
-  end
-end

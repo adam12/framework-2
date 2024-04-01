@@ -1,2 +1,2 @@
-require "minitest/autorun"
+require "framework/test_case"
 require "debug"

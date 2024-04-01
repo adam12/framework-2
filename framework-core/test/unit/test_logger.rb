@@ -1,7 +1,7 @@
 require "test_init"
 require "framework"
 
-class Framework::TestLogger < Minitest::Test
+class Framework::TestLogger < Framework::TestCase
   def test_log_info
     logger = Framework::Logger
 

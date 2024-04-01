@@ -5,7 +5,7 @@ require "framework-render"
 
 module Framework
   module Plugins
-    class TestRender < Minitest::Test
+    class TestRender < Framework::TestCase
       def test_render
         application = Class.new(Framework::Application) do
           plugin Framework::Plugins::Http
