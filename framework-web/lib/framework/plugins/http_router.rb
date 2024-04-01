@@ -21,17 +21,17 @@ module Framework
         def to_app
           Builder.new(http_middleware, router).to_app
         end
+
+        def after_initialize
+          super
+
+          self.router = Framework::Router.build(self)
+          self.route_helpers = RouteHelpers.new(router)
+          self.http_middleware = config.http_router.middleware
+        end
       end
 
       module ApplicationClassMethods
-        def build(*)
-          instance = super()
-          instance.router = router = Framework::Router.build(instance)
-          instance.route_helpers = RouteHelpers.new(router)
-          instance.http_middleware = config.http_router.middleware
-          instance
-        end
-
         def start(...)
           build(...).to_app
         end
