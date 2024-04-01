@@ -18,7 +18,7 @@ module Framework
         route_class = application.namespace::Routes
       rescue NameError
         # Define empty routes class if none has been defined
-        application.namespace.const_define(:Routes, Class.new(Framework::Routes))
+        application.namespace.const_set(:Routes, Class.new(Framework::Routes))
       end
 
       router = Hanami::Router.new(
