@@ -32,16 +32,10 @@ module Framework
       class Action
         @application_class = Framework::Application
 
-        attr_accessor :_request_context
-
-        def _request
-          _request_context.request
-        end
+        attr_reader :_request
         alias_method :request, :_request
 
-        def _response
-          _request_context.response
-        end
+        attr_reader :_response
         alias_method :response, :_response
 
         def _application
@@ -75,8 +69,9 @@ module Framework
         module Callable
           # Accept call with request_context and then invoke Action's `call`
           # method without any arguments.
-          def call(request_context)
-            @_request_context = request_context
+          def call(env)
+            @_request = application_class::Request.new(env)
+            @_response = application_class::Response.new
 
             catch(:halt) do
               around_call do
@@ -106,8 +101,8 @@ module Framework
           end
 
           # Entrypoint
-          def call(request_context)
-            build.call(request_context)
+          def call(env)
+            build.call(env)
           end
         end
 

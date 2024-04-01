@@ -18,11 +18,8 @@ module Framework
           end
         end
 
-        request_context = Framework::Resolver::RequestContext.build(
-          env: Rack::MockRequest.env_for("/"),
-          application: application.build
-        )
-        assert_equal "Render test string\n", action.new.call(request_context)
+        env = Rack::MockRequest.env_for("/")
+        assert_equal "Render test string\n", action.new.call(env)
       end
 
       def test_render_with_layout
@@ -37,11 +34,8 @@ module Framework
           end
         end
 
-        request_context = Framework::Resolver::RequestContext.build(
-          env: Rack::MockRequest.env_for("/"),
-          application: application.build
-        )
-        assert_equal "Layout with Render test string\n\n", action.new.call(request_context)
+        env = Rack::MockRequest.env_for("/")
+        assert_equal "Layout with Render test string\n\n", action.new.call(env)
       end
 
       def test_render_with_locals
@@ -56,11 +50,8 @@ module Framework
           end
         end
 
-        request_context = Framework::Resolver::RequestContext.build(
-          env: Rack::MockRequest.env_for("/"),
-          application: application.build
-        )
-        assert_equal "Render with locals foobar\n", action.new.call(request_context)
+        env = Rack::MockRequest.env_for("/")
+        assert_equal "Render with locals foobar\n", action.new.call(env)
       end
     end
   end
