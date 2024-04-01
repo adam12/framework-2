@@ -45,7 +45,7 @@ module Framework
         alias_method :response, :_response
 
         def _application
-          _request_context.application
+          application_class.instance
         end
         alias_method :application, :_application
 
