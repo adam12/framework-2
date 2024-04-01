@@ -9,6 +9,12 @@ module Framework
           @namespace = namespace
           @config = config
         end
+
+        # Hook called after construction of application instance
+        #
+        # Override and call `super`.
+        def after_initialize
+        end
       end
 
       module ApplicationClassMethods
@@ -18,7 +24,9 @@ module Framework
 
         def build(namespace: nil)
           namespace ||= self.namespace
-          new(namespace, config.dup)
+          instance = new(namespace, config.dup)
+          instance.after_initialize
+          instance
         end
 
         def app
