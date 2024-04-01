@@ -9,6 +9,7 @@ module Framework
   end
 
   module Middleware
+    autoload :AssumeSsl, __dir__ + "/framework/middleware/assume_ssl.rb"
     autoload :Up, __dir__ + "/framework/middleware/up"
   end
 
