@@ -8,5 +8,9 @@ module Framework
     autoload :HttpCsrf, __dir__ + "/framework/plugins/http_csrf.rb"
   end
 
+  module Middleware
+    autoload :Up, __dir__ + "/framework/middleware/up"
+  end
+
   autoload :Resolver, __dir__ + "/framework/web/resolver.rb"
 end
