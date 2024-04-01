@@ -2,11 +2,9 @@ module Framework
   module Plugins
     module Core
       module ApplicationInstanceMethods
-        attr_reader :namespace
         attr_reader :config
 
-        def initialize(namespace, config)
-          @namespace = namespace
+        def initialize(config)
           @config = config
         end
 
@@ -15,16 +13,18 @@ module Framework
         # Override and call `super`.
         def after_initialize
         end
+
+        # Namespace of Application class
+        #
+        # See Application.namespace.
+        def namespace
+          self.class.namespace
+        end
       end
 
       module ApplicationClassMethods
-        def namespace
-          Utils.constantize(Utils.deconstantize(to_s))
-        end
-
-        def build(namespace: nil)
-          namespace ||= self.namespace
-          instance = new(namespace, config.dup)
+        def build
+          instance = new(config.dup)
           instance.after_initialize
           instance
         end
@@ -35,6 +35,21 @@ module Framework
 
         def root
           Framework.root
+        end
+
+        # Namespace of Application class
+        #
+        # Uses module above Application class if available, or an anonymous
+        # module if not.
+        def namespace
+          return @namespace if defined?(@namespace)
+
+          @namespace = if name
+            Utils.constantize(Utils.deconstantize(name))
+          else
+            # Anonymous class
+            Module.new
+          end
         end
 
         # Singleton instance of built application
