@@ -39,6 +39,11 @@ module Framework
           self.class.application_class
         end
 
+        # Hook to customize error handling
+        def handle_error(ex)
+          raise ex
+        end
+
         def self.inherited(subclass)
           super
           subclass.application_class = application_class
@@ -60,6 +65,8 @@ module Framework
                 # Intentionally called without arguments
                 super()
               end
+            rescue Exception => ex # standard:disable Lint/RescueException
+              handle_error(ex)
             end
           end
         end
