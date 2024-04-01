@@ -10,4 +10,6 @@ Gem::Specification.new do |spec|
   spec.files = Dir.glob("lib/**/*.rb")
 
   spec.add_dependency "sequel", "~> 5.77"
+
+  spec.required_ruby_version = ">= 3.1.0"
 end
