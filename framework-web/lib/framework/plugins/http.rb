@@ -14,20 +14,20 @@ module Framework
       class Action
         @application_class = Framework::Application
 
-        attr_accessor :request_context
+        attr_accessor :_request_context
 
         def _request
-          request_context.request
+          _request_context.request
         end
         alias_method :request, :_request
 
         def _response
-          request_context.response
+          _request_context.response
         end
         alias_method :response, :_response
 
         def _application
-          request_context.application
+          _request_context.application
         end
         alias_method :application, :_application
 
@@ -58,7 +58,7 @@ module Framework
           # Accept call with request_context and then invoke Action's `call`
           # method without any arguments.
           def call(request_context)
-            @request_context = request_context
+            @_request_context = request_context
 
             catch(:halt) do
               around_call do
