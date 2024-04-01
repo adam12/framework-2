@@ -14,8 +14,8 @@ module Framework
 
     def self.build(application)
       resolver = Framework::Resolver.new(application)
-      begin
-        route_class = application.namespace::Routes
+      route_class = begin
+        application.namespace::Routes
       rescue NameError
         # Define empty routes class if none has been defined
         application.namespace.const_set(:Routes, Class.new(Framework::Routes))
