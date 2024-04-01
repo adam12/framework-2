@@ -2,7 +2,6 @@ require "test_init"
 require "framework"
 require "framework-web"
 require "framework-render"
-require "framework/web/resolver"
 
 module Framework
   module Plugins

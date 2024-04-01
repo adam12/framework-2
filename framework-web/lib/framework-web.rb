@@ -7,4 +7,6 @@ module Framework
     autoload :HttpFlash, __dir__ + "/framework/plugins/http_flash.rb"
     autoload :HttpCsrf, __dir__ + "/framework/plugins/http_csrf.rb"
   end
+
+  autoload :Resolver, __dir__ + "/framework/web/resolver.rb"
 end
