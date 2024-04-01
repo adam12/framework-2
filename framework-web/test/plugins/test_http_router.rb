@@ -1,5 +1,4 @@
 require "test_init"
-require "framework/plugins/http_router"
 
 class Framework::Plugins::HttpRouter::TestMiddlewareStack < Framework::TestCase
   def test_use_middleware_pushes_to_bottom_of_stack

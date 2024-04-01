@@ -1,5 +1,4 @@
 require "test_init"
-require "framework/plugins/http_router/middleware_stack"
 
 module Framework
   module Plugins

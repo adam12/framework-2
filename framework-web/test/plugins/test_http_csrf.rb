@@ -1,6 +1,4 @@
 require "test_init"
-require "framework"
-require "framework-web"
 
 class Framework::Plugins::TestHttpCsrf < Framework::TestCase
   def test_csrf_tag
