@@ -68,9 +68,9 @@ module Framework
       case value
       when nil
         NilDecorator.new(value)
-      when String
+      when ::String
         StringDecorator.new(value)
-      when Integer
+      when ::Integer
         IntegerDecorator.new(value)
       when ::Hash
         HashDecorator.new(value)
