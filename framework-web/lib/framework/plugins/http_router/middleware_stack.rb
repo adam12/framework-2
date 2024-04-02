@@ -43,7 +43,7 @@ module Framework
         def self.default
           new.tap do |stack|
             require "hanami/middleware/body_parser"
-            stack.use Hanami::Middleware::BodyParser, :json
+            stack.use Hanami::Middleware::BodyParser, [:json, :form]
           end
         end
       end

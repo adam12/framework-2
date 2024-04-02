@@ -20,7 +20,7 @@ class Framework::Plugins::HttpRouter::TestMiddlewareStack < Framework::TestCase
   def test_default_stack_includes_body_parser
     stack = Framework::Plugins::HttpRouter::MiddlewareStack.default
 
-    assert_includes stack.to_a, [Hanami::Middleware::BodyParser, [:json], nil]
+    assert_includes stack.to_a, [Hanami::Middleware::BodyParser, [[:json, :form]], nil]
   end
 
   def stack
