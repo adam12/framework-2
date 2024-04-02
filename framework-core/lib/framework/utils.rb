@@ -2,6 +2,10 @@
 
 module Framework
   module Utils
+    autoload :Blank, __dir__ + "/utils/blank"
+    autoload :String, __dir__ + "/utils/string"
+    autoload :Hash, __dir__ + "/utils/hash"
+
     # Warn functionality has been deprecated with original callsite location
     def deprecated(msg)
       warn msg, category: :deprecated, uplevel: 1
@@ -41,5 +45,9 @@ module Framework
       end
     end
     module_function :demodulize
+
+    def self.blank?(value)
+      Blank.blank?(value)
+    end
   end
 end
