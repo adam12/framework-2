@@ -1,8 +1,12 @@
 # Benchmark overhead of creating new Decorator instance for each call vs
 # having a static method call.
-require "bundler/setup"
-require "benchmark/ips"
+
+require "bundler/inline"
 require "delegate"
+
+gemfile do
+  gem "benchmark-ips", require: "benchmark/ips"
+end
 
 module U
   class StringDecorator < DelegateClass(String)
