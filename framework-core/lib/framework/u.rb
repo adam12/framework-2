@@ -39,6 +39,30 @@ module Framework
       end
     end
 
+    class HashDecorator < DelegateClass(Hash)
+      ##
+      # Deep symbolize all keys of the Hash.
+      def deep_symbolize_keys
+        each_with_object({}) { |(key, value), result|
+          new_key =
+            case key
+            when ::String
+              key.to_sym
+            else
+              key
+            end
+
+          new_value =
+            case value
+            when ::Hash then self.class.new(value).deep_symbolize_keys
+            else value
+            end
+
+          result[new_key] = new_value
+        }
+      end
+    end
+
     # Set up decorator utility for provided value
     def self.[](value)
       case value
@@ -48,6 +72,8 @@ module Framework
         StringDecorator.new(value)
       when Integer
         IntegerDecorator.new(value)
+      when ::Hash
+        HashDecorator.new(value)
       else
         value
       end
