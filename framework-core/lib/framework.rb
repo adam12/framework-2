@@ -13,4 +13,5 @@ module Framework
 
   autoload :Validation, "framework/validation"
   autoload :Filter, "framework/filter"
+  autoload :U, "framework/u"
 end
