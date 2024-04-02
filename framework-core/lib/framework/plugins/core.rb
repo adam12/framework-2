@@ -45,7 +45,7 @@ module Framework
           return @namespace if defined?(@namespace)
 
           @namespace = if name
-            Utils.constantize(Utils.deconstantize(name))
+            Utils::String.constantize(Utils::String.deconstantize(name))
           else
             # Anonymous class
             Module.new

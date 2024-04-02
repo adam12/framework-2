@@ -3,19 +3,19 @@ require "framework/utils"
 
 class Framework::TestUtils < Framework::TestCase
   def test_demodulize
-    assert_equal "Inflections", Framework::Utils.demodulize("Framework::Inflections")
-    assert_equal "", Framework::Utils.demodulize("")
+    assert_equal "Inflections", Framework::Utils::String.demodulize("Framework::Inflections")
+    assert_equal "", Framework::Utils::String.demodulize("")
   end
 
   def test_constantize
-    assert_equal String, Framework::Utils.constantize("String")
-    assert_equal Framework::Application, Framework::Utils.constantize("Framework::Application")
+    assert_equal String, Framework::Utils::String.constantize("String")
+    assert_equal Framework::Application, Framework::Utils::String.constantize("Framework::Application")
   end
 
   def test_deconstantize
-    assert_equal "Net", Framework::Utils.deconstantize("Net::HTTP")
-    assert_equal "String", Framework::Utils.deconstantize("String")
-    assert_equal "", Framework::Utils.deconstantize("")
+    assert_equal "Net", Framework::Utils::String.deconstantize("Net::HTTP")
+    assert_equal "String", Framework::Utils::String.deconstantize("String")
+    assert_equal "", Framework::Utils::String.deconstantize("")
   end
 
   def test_deprecated
