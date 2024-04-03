@@ -5,7 +5,7 @@ module Framework
         application.plugin Variant
 
         enable_reloading = application.variant.development?
-        enable_eager_loading = !application.variant.development? && !application.variant.testing?
+        # enable_eager_loading = !application.variant.development? && !application.variant.testing?
 
         require "zeitwerk"
 
@@ -19,7 +19,7 @@ module Framework
         block&.call(loader)
 
         loader.setup
-        loader.eager_load if enable_eager_loading
+        # loader.eager_load if enable_eager_loading
 
         application.const_set(:Loader, loader)
       end
