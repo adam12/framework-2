@@ -1,5 +1,11 @@
+# frozen-string-literal: true
+
 module Framework
   module Plugins
+    # Core framework functionality.
+    #
+    # Automatically loaded into framework. Manually adding using `plugin` is not
+    # necessary.
     module Core
       module ApplicationInstanceMethods
         attr_reader :config
