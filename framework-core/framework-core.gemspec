@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir.glob("lib/**/*.rb")
 
   spec.add_dependency "bake", "~> 0.19"
-  spec.add_dependency "console", ">= 1.0"
+  spec.add_dependency "console", "~> 1.0"
   spec.add_dependency "dotenv", "~> 3.0"
   spec.add_dependency "variant", "~> 0.1"
 
