@@ -1,11 +1,7 @@
 # frozen-string-literal: true
 
-require_relative "configurable"
-
 module Framework
   class Application
-    extend Framework::Configurable
-
     @loaded_plugins = []
 
     def self.plugin(mod, ...)

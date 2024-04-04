@@ -8,12 +8,6 @@ module Framework
     # necessary.
     module Core
       module ApplicationInstanceMethods
-        attr_reader :config
-
-        def initialize(config)
-          @config = config
-        end
-
         # Hook called after construction of application instance
         #
         # Override and call `super`.
@@ -30,7 +24,7 @@ module Framework
 
       module ApplicationClassMethods
         def build
-          instance = new(config.dup)
+          instance = new
           instance.after_initialize
           instance
         end
@@ -66,6 +60,7 @@ module Framework
 
       def self.before_load(mod)
         require "framework/utils"
+        mod.plugin Settings
 
         mod.class_eval do
           include ApplicationInstanceMethods

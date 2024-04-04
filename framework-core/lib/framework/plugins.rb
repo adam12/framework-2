@@ -6,5 +6,6 @@ module Framework
     autoload :Loader, __dir__ + "/plugins/loader.rb"
     autoload :Variant, __dir__ + "/plugins/variant.rb"
     autoload :Initializers, __dir__ + "/plugins/initializers.rb"
+    autoload :Settings, __dir__ + "/plugins/settings"
   end
 end

@@ -22,7 +22,7 @@ module Framework
       end
 
       router = Hanami::Router.new(
-        base_url: application.config.http_router.base_url,
+        base_url: application.settings[:http_router][:base_url],
         resolver: resolver
       )
 

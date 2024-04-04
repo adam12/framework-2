@@ -27,7 +27,7 @@ module Framework
 
           self.router = Framework::Router.build(self)
           self.route_helpers = RouteHelpers.new(router)
-          self.http_middleware = config.http_router.middleware
+          self.http_middleware = self.class.settings[:http_router][:middleware]
         end
       end
 
@@ -48,10 +48,9 @@ module Framework
           include ApplicationInstanceMethods
           extend ApplicationClassMethods
 
-          setting :http_router do
-            setting :base_url, default: "http://localhost"
-            setting :middleware, default: MiddlewareStack.default
-          end
+          settings[:http_router] ||= {}
+          settings[:http_router][:base_url] = "http://localhost"
+          settings[:http_router][:middleware] = MiddlewareStack.default
         end
       end
     end

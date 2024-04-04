@@ -49,7 +49,7 @@ module Framework
       end
 
       def self.before_load(application)
-        application.config.http_router.middleware.use Middleware
+        application.settings[:http_router][:middleware].use Middleware
       end
     end
   end

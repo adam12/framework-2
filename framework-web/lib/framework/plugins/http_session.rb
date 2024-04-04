@@ -2,7 +2,7 @@ module Framework
   module Plugins
     module HttpSession
       def self.before_load(application, secret: ENV.fetch("SESSION_SECRET"))
-        application.config.http_router.middleware.use ::Rack::Session::Cookie, secret: secret
+        application.settings[:http_router][:middleware].use ::Rack::Session::Cookie, secret: secret
       end
 
       module ActionMethods

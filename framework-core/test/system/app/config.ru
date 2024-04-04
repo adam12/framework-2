@@ -6,10 +6,10 @@ module Blog
     plugin Framework::Plugins::Http
     plugin Framework::Plugins::HttpRouter
 
-    config.http_router.base_url = "http://example.com"
+    settings[:http_router][:base_url] = "http://example.com"
 
     require "rack/runtime"
-    config.http_router.middleware.use Rack::Runtime
+    settings[:http_router][:middleware].use Rack::Runtime
 
     require "framework/plugins/h"
     plugin Framework::Plugins::H

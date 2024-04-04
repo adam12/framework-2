@@ -20,9 +20,8 @@ module Framework
 
           enable_eager_loading = !application.variant.development? && !application.variant.testing?
 
-          setting :loader do
-            setting :eager_load, default: enable_eager_loading
-          end
+          settings[:loader] ||= {}
+          settings[:loader][:eager_load] = enable_eager_loading
 
           include ApplicationInstanceMethods
         end
@@ -47,7 +46,7 @@ module Framework
 
       module ApplicationInstanceMethods
         def after_initialize
-          if config.loader.eager_load
+          if self.class.settings[:loader][:eager_load]
             Framework.logger.debug { "Performing eager-load" }
             self.class::Loader.eager_load
           end
