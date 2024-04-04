@@ -5,9 +5,11 @@ require "rack"
 module Framework
   module Plugins
     module Http
+      # Request instance passed inside action
       class Request < ::Rack::Request
       end
 
+      # Response instance inside action
       class Response < ::Rack::Response
         # Immediately halt request with provided response
         #
@@ -52,6 +54,8 @@ module Framework
         end
 
         # Hook to customize error handling
+        #
+        # Override this inside the action to customize errors raised.
         def handle_error(ex)
           raise ex
         end
