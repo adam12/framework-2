@@ -15,10 +15,19 @@ module Framework
     #   end
     module Loader
       def self.before_load(application, log: false, &block)
-        application.plugin Variant
+        application.class_eval do
+          plugin Variant
+
+          enable_eager_loading = !application.variant.development? && !application.variant.testing?
+
+          setting :loader do
+            setting :eager_load, default: enable_eager_loading
+          end
+
+          include ApplicationInstanceMethods
+        end
 
         enable_reloading = application.variant.development?
-        # enable_eager_loading = !application.variant.development? && !application.variant.testing?
 
         require "zeitwerk"
 
@@ -32,9 +41,19 @@ module Framework
         block&.call(loader)
 
         loader.setup
-        # loader.eager_load if enable_eager_loading
 
         application.const_set(:Loader, loader)
+      end
+
+      module ApplicationInstanceMethods
+        def after_initialize
+          if config.loader.eager_load
+            Framework.logger.debug { "Performing eager-load" }
+            self.class::Loader.eager_load
+          end
+
+          super
+        end
       end
     end
   end
