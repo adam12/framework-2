@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "console", "~> 1.0"
   spec.add_dependency "dotenv", "~> 3.0"
   spec.add_dependency "variant", "~> 0.1"
+  spec.add_dependency "zeitwerk", "~> 2.6"
 
   spec.required_ruby_version = ">= 3.1.0"
 end
