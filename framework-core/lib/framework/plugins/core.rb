@@ -23,6 +23,10 @@ module Framework
       end
 
       module ApplicationClassMethods
+        # Empty method to customize startup process
+        def start
+        end
+
         # Empty method to customize initialization process
         def build(...)
           new(...)

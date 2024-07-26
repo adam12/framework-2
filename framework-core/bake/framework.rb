@@ -35,6 +35,7 @@ end
 # Boot console
 def console
   call("framework:application")
+  Framework::Application.subclasses.each { |application| application.start }
 
   require "irb"
 
