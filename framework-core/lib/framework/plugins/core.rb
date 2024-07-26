@@ -23,10 +23,19 @@ module Framework
       end
 
       module ApplicationClassMethods
-        def build
-          instance = new
-          instance.after_initialize
-          instance
+        # Empty method to customize initialization process
+        def build(...)
+          new(...)
+        end
+
+        # :nodoc:
+        # Ensure that all new instances have `after_initialize` called upon
+        # them.
+        # :doc:
+        def new(...)
+          super.tap do |instance|
+            instance.after_initialize
+          end
         end
 
         def app
