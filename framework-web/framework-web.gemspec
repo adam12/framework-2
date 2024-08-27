@@ -12,5 +12,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "hanami-router", "~> 2.0"
   spec.add_dependency "rack", ">= 2.0"
 
+  # Transitive dependency fix for rack 2.x
+  spec.add_dependency "base64", "~> 0.2"
+
   spec.required_ruby_version = ">= 3.1.0"
 end
