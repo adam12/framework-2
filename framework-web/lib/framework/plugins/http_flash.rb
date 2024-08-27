@@ -16,7 +16,7 @@ module Framework
 
           def initialize(hash)
             @next = {}
-            super(hash)
+            super
           end
 
           alias_method :now, :__getobj__

@@ -42,14 +42,14 @@ module Framework
 
       module RenderMethods
         def render(template = nil, content: nil, layout: nil, locals: {})
-          case {template:, content:, layout:}
+          case {template:, content:, layout:} # standard:disable Lint/LiteralAsCondition
           # Ambiguous params
           in {template: String, content: String}
             raise ArgumentError, "Passing template and :content is ambiguous"
 
           # Layout with string content
           in {layout: String, content: String}
-            return Tilt.new(layout).render(self) { content }
+            Tilt.new(layout).render(self) { content }
 
           # Layout with template
           in {template: String, content: nil, layout: String}
@@ -57,7 +57,7 @@ module Framework
 
           # Inline content without layout
           in {template: nil, content: String, layout: nil}
-            return content
+            content
 
           # Template without layout
           in {template: String, content: nil, layout: nil}
