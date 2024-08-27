@@ -6,6 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem "bake"
 gem "debug"
+gem "erubi"
 gem "rake"
 gem "webrick"
 

@@ -94,6 +94,19 @@ module Framework
 
         assert_equal "Passing template and :content is ambiguous", ex.message
       end
+
+      def test_render_erb
+        application = build_application
+
+        action = Class.new(application::Action) do
+          def call
+            render(__dir__ + "/render_erb.erb", locals: {foobar: "foobar"})
+          end
+        end
+
+        env = Rack::MockRequest.env_for("/")
+        assert_equal "foobar\n", action.new.call(env)
+      end
     end
   end
 end
