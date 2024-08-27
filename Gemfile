@@ -5,16 +5,16 @@ source "https://rubygems.org"
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem "bake"
-gem "debug", "~> 1.7"
+gem "debug"
 gem "rake"
 gem "webrick"
 
 group :development do
-  gem "standard", "~> 1.9"
+  gem "standard"
 end
 
 group :test do
-  gem "minitest", "> 5.16"
+  gem "minitest"
   gem "simplecov"
 end
 

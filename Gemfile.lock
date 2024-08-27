@@ -1,0 +1,146 @@
+PATH
+  remote: framework-core
+  specs:
+    framework-core (0.1.0)
+      bake (~> 0.19)
+      console (~> 1.0)
+      dotenv (~> 3.0)
+      variant (~> 0.1)
+      zeitwerk (~> 2.6)
+
+PATH
+  remote: framework-render
+  specs:
+    framework-render (0.1.0)
+      tilt (~> 2.0)
+
+PATH
+  remote: framework-web
+  specs:
+    framework-web (0.1.0)
+      hanami-router (~> 2.0)
+      rack (>= 2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.2)
+    bake (0.19.0)
+      bigdecimal
+      samovar (~> 2.1)
+    benchmark-ips (2.13.0)
+    bigdecimal (3.1.7)
+    console (1.23.6)
+      fiber-annotation
+      fiber-local
+      json
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
+    docile (1.4.1)
+    dotenv (3.1.0)
+    fiber-annotation (0.2.0)
+    fiber-local (1.0.0)
+    hanami-router (2.1.0)
+      mustermann (~> 3.0)
+      mustermann-contrib (~> 3.0)
+      rack (~> 2.0)
+    hansi (0.2.1)
+    io-console (0.7.2)
+    irb (1.12.0)
+      rdoc
+      reline (>= 0.4.2)
+    json (2.7.1)
+    language_server-protocol (3.17.0.3)
+    lint_roller (1.1.0)
+    mapping (1.1.1)
+    minitest (5.22.3)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-contrib (3.0.0)
+      hansi (~> 0.2.0)
+      mustermann (= 3.0.0)
+    parallel (1.24.0)
+    parser (3.3.0.5)
+      ast (~> 2.4.1)
+      racc
+    psych (5.1.2)
+      stringio
+    racc (1.7.3)
+    rack (2.2.9)
+    rainbow (3.1.1)
+    rake (13.1.0)
+    rdoc (6.6.3.1)
+      psych (>= 4.0.0)
+    regexp_parser (2.9.0)
+    reline (0.5.0)
+      io-console (~> 0.5)
+    rexml (3.2.6)
+    rubocop (1.62.1)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.31.2)
+      parser (>= 3.3.0.4)
+    rubocop-performance (1.20.2)
+      rubocop (>= 1.48.1, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
+    ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
+    samovar (2.3.0)
+      console (~> 1.0)
+      mapping (~> 1.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
+    standard (1.35.1)
+      language_server-protocol (~> 3.17.0.2)
+      lint_roller (~> 1.0)
+      rubocop (~> 1.62.0)
+      standard-custom (~> 1.0.0)
+      standard-performance (~> 1.3)
+    standard-custom (1.0.2)
+      lint_roller (~> 1.0)
+      rubocop (~> 1.50)
+    standard-performance (1.3.1)
+      lint_roller (~> 1.1)
+      rubocop-performance (~> 1.20.2)
+    stringio (3.1.0)
+    thread-local (1.1.0)
+    tilt (2.3.0)
+    unicode-display_width (2.5.0)
+    variant (0.1.1)
+      thread-local
+    webrick (1.8.1)
+    zeitwerk (2.6.16)
+
+PLATFORMS
+  arm64-darwin-21
+  arm64-darwin-22
+  arm64-darwin-23
+
+DEPENDENCIES
+  bake
+  benchmark-ips
+  debug
+  framework-core!
+  framework-render!
+  framework-web!
+  minitest
+  rake
+  simplecov
+  standard
+  webrick
+
+BUNDLED WITH
+   2.5.7
