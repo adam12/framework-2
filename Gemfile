@@ -15,6 +15,7 @@ end
 
 group :test do
   gem "minitest", "> 5.16"
+  gem "simplecov"
 end
 
 group :benchmark do
