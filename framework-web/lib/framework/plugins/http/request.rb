@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-require "rack"
+require "rack/request"
 
 module Framework
   module Plugins
