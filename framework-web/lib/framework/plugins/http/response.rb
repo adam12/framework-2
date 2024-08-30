@@ -68,6 +68,22 @@ module Framework
           @rack_response.etag = value
         end
 
+        def headers
+          @rack_response.headers
+        end
+
+        def header(...)
+          @rack_response.header(...)
+        end
+
+        def []=(key, value)
+          @rack_response[key] = value
+        end
+
+        def [](key)
+          @rack_response[key]
+        end
+
         def location
           @rack_response.location
         end
@@ -84,8 +100,16 @@ module Framework
           @rack_response.media_type_params
         end
 
+        def redirect(target, status = 302)
+          @rack_response.redirect(target, status)
+        end
+
         def set_cookie(key, value)
           @rack_response.set_cookie(key, value)
+        end
+
+        def status=(code)
+          @rack_response.status = code
         end
 
         # Immediately halt request with provided response
