@@ -42,21 +42,13 @@ module Framework
             @_request = application_class::Request.new(env)
             @_response = application_class::Response.new
 
-            around_call do
-              before_call
-              res = super()
-              after_call(res)
-            end
+            before_call
+            res = super()
+            after_call(res)
           end
         end
 
         module ActionMethods
-          # Hook to allow mutating of return value from Action `call` method.
-          # @deprecated
-          def around_call
-            yield
-          end
-
           # Hook called before the call method in the action
           def before_call
           end
