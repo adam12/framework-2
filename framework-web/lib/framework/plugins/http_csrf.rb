@@ -68,7 +68,7 @@ module Framework
         end
 
         # Hook into calling of action to check CSRF if required.
-        def around_call
+        def before_call
           _check_token unless skip_csrf?
           super
         end
