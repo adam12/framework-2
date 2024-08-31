@@ -57,9 +57,11 @@ module Framework
             yield
           end
 
+          # Hook called before the call method in the action
           def before_call
           end
 
+          # Hook called after the call method in the action
           def after_call(res)
             res
           end
