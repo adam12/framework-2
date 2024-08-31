@@ -25,13 +25,6 @@ module Framework
           self.class.application_class
         end
 
-        # Hook to customize error handling
-        #
-        # Override this inside the action to customize errors raised.
-        def handle_error(ex)
-          raise ex
-        end
-
         def self.inherited(subclass)
           super
           subclass.application_class = application_class
@@ -64,6 +57,13 @@ module Framework
           # Hook to allow mutating of return value from Action `call` method.
           def around_call
             yield
+          end
+
+          # Hook to customize error handling
+          #
+          # Override this inside the action to customize errors raised.
+          def handle_error(ex)
+            raise ex
           end
         end
 
