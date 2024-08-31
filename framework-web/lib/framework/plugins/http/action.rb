@@ -28,24 +28,10 @@ module Framework
         def self.inherited(subclass)
           super
           subclass.application_class = application_class
-          subclass.prepend Callable
         end
 
         def self.===(other)
           name == other.name
-        end
-
-        module Callable
-          # Accept call with request_context and then invoke Action's `call`
-          # method without any arguments.
-          def call(env)
-            @_request = application_class::Request.new(env)
-            @_response = application_class::Response.new
-
-            before_call
-            res = super()
-            after_call(res)
-          end
         end
 
         module ActionMethods
@@ -78,9 +64,13 @@ module Framework
           # Entrypoint
           def call(env)
             instance = build
+            instance.instance_variable_set(:@_request, application_class::Request.new(env))
+            instance.instance_variable_set(:@_response, application_class::Response.new)
 
             catch(:halt) do
-              instance.call(env)
+              instance.before_call
+              res = instance.call
+              instance.after_call(res)
             rescue Exception => ex # standard:disable Lint/RescueException
               instance.handle_error(ex)
             end

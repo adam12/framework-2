@@ -23,7 +23,7 @@ module Framework
         end
 
         env = Rack::MockRequest.env_for("/")
-        assert_equal "Render test string\n", action.new.call(env)
+        assert_equal "Render test string\n", action.call(env)
       end
 
       def test_render_with_layout
@@ -36,7 +36,7 @@ module Framework
         end
 
         env = Rack::MockRequest.env_for("/")
-        assert_equal "Layout with Render test string\n\n", action.new.call(env)
+        assert_equal "Layout with Render test string\n\n", action.call(env)
       end
 
       def test_render_with_locals
@@ -49,7 +49,7 @@ module Framework
         end
 
         env = Rack::MockRequest.env_for("/")
-        assert_equal "Render with locals foobar\n", action.new.call(env)
+        assert_equal "Render with locals foobar\n", action.call(env)
       end
 
       def test_render_layout_with_string
@@ -62,7 +62,7 @@ module Framework
         end
 
         env = Rack::MockRequest.env_for("/")
-        assert_equal "Layout with This is the content\n", action.new.call(env)
+        assert_equal "Layout with This is the content\n", action.call(env)
       end
 
       def test_render_inline_content_without_layout
@@ -75,7 +75,7 @@ module Framework
         end
 
         env = Rack::MockRequest.env_for("/")
-        assert_equal "This is the content", action.new.call(env)
+        assert_equal "This is the content", action.call(env)
       end
 
       def test_render_ambiguous_args
@@ -89,7 +89,7 @@ module Framework
 
         env = Rack::MockRequest.env_for("/")
         ex = assert_raises(ArgumentError) do
-          action.new.call(env)
+          action.call(env)
         end
 
         assert_equal "Passing template and :content is ambiguous", ex.message
@@ -105,7 +105,7 @@ module Framework
         end
 
         env = Rack::MockRequest.env_for("/")
-        assert_equal "foobar\n", action.new.call(env)
+        assert_equal "foobar\n", action.call(env)
       end
     end
   end
