@@ -42,13 +42,8 @@ module Framework
             @_request = application_class::Request.new(env)
             @_response = application_class::Response.new
 
-            catch(:halt) do
-              around_call do
-                # Intentionally called without arguments
-                super()
-              end
-            rescue Exception => ex # standard:disable Lint/RescueException
-              handle_error(ex)
+            around_call do
+              super()
             end
           end
         end
@@ -78,7 +73,13 @@ module Framework
 
           # Entrypoint
           def call(env)
-            build.call(env)
+            instance = build
+
+            catch(:halt) do
+              instance.call(env)
+            rescue Exception => ex # standard:disable Lint/RescueException
+              instance.handle_error(ex)
+            end
           end
         end
 
