@@ -15,10 +15,6 @@ module Framework
         attr_reader :_application
         alias_method :application, :_application
 
-        def routes
-          _application.route_helpers
-        end
-
         def application_class
           self.class.application_class
         end
@@ -47,6 +43,11 @@ module Framework
           # Override this inside the action to customize errors raised.
           def handle_error(ex)
             raise ex
+          end
+
+          # Route helpers `path` and `url`
+          def routes
+            _application.route_helpers
           end
         end
 
