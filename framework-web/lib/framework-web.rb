@@ -6,6 +6,7 @@ module Framework
     autoload :HttpSession, __dir__ + "/framework/plugins/http_session.rb"
     autoload :HttpFlash, __dir__ + "/framework/plugins/http_flash.rb"
     autoload :HttpCsrf, __dir__ + "/framework/plugins/http_csrf.rb"
+    autoload :RenderResponse, __dir__ + "/framework/plugins/render_response.rb"
   end
 
   module Middleware
