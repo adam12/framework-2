@@ -12,9 +12,7 @@ module Framework
         attr_reader :_response
         alias_method :response, :_response
 
-        def _application
-          application_class.instance
-        end
+        attr_reader :_application
         alias_method :application, :_application
 
         def routes
@@ -66,6 +64,7 @@ module Framework
             instance = build
             instance.instance_variable_set(:@_request, application_class::Request.new(env))
             instance.instance_variable_set(:@_response, application_class::Response.new)
+            instance.instance_variable_set(:@_application, application_class.instance)
 
             catch(:halt) do
               instance.before_call
