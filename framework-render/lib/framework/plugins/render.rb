@@ -72,11 +72,11 @@ module Framework
             raise ArgumentError, "Passing template and :content is ambiguous"
 
           # Layout with string content
-          in {layout: String, content: String}
+          in {layout: String | Pathname, content: String}
             retrieve_template.call(layout).render(self) { content }
 
           # Layout with template
-          in {template: String, content: nil, layout: String}
+          in {template: String | Pathname, content: nil, layout: String | Pathname}
             retrieve_template.call(layout).render(self) { retrieve_template.call(template).render(self, locals) }
 
           # Inline content without layout
@@ -84,7 +84,7 @@ module Framework
             content
 
           # Template without layout
-          in {template: String, content: nil, layout: nil}
+          in {template: String | Pathname, content: nil, layout: nil}
             retrieve_template.call(template).render(self, locals)
           end
         end
