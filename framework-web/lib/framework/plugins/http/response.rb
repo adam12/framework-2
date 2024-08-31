@@ -126,6 +126,8 @@ module Framework
           in [Integer => status, String => body]
             self.status = status
             write(body)
+          in []
+            # No arguments
           end
 
           throw :halt, finish
