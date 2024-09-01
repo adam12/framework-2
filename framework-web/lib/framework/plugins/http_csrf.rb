@@ -57,6 +57,7 @@ module Framework
         #     end
         #   end
         def skip_csrf?
+          return true if Framework::Variant.testing?
           false
         end
 
