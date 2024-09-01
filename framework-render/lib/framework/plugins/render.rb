@@ -63,7 +63,7 @@ module Framework
           engine_options = options.dig(:engine_options, engine) || {}
 
           retrieve_template = proc do |file|
-            Tilt[file].new(file, 1, engine_options)
+            Tilt[engine].new(file, 1, engine_options)
           end
 
           case {template:, content:, layout:} # standard:disable Lint/LiteralAsCondition
