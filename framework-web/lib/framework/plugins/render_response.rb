@@ -12,6 +12,8 @@ module Framework
           in String
             _response.write(res)
             _response.finish
+          in NilClass
+            _response.finish
           end
         end
       end
